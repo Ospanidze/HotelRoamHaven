@@ -7,26 +7,17 @@
 
 import UIKit
 
+protocol RoomViewDelegate: AnyObject {
+    func didTapped()
+}
+
 final class RoomView: UIView {
+    
+    weak var roomViewDelegate: RoomViewDelegate?
     
     private var imagesURL: [String] = []
     
-    private let imageCollectionView: UICollectionView = {
-        let collectionFlowLayout = UICollectionViewFlowLayout()
-        collectionFlowLayout.scrollDirection = .horizontal
-        collectionFlowLayout.minimumLineSpacing = 0
-        collectionFlowLayout.minimumInteritemSpacing = 0
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionFlowLayout)
-        collectionView.register(
-            ImageCollectionViewCell.self,
-            forCellWithReuseIdentifier: ImageCollectionViewCell.identifier
-        )
-        collectionView.layer.cornerRadius = 15
-        collectionView.isPagingEnabled = true
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        return collectionView
-    }()
+    private let imageCollectionView = ImageCollectionView()
     
     private lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
@@ -65,10 +56,30 @@ final class RoomView: UIView {
         backgroundColor = .white
         setupComponents()
         setupDelegates()
+        imageCollectionView.register(
+            ImageCollectionViewCell.self,
+            forCellWithReuseIdentifier: ImageCollectionViewCell.identifier
+        )
+        
+        selectedButton.addTarget(self, action: #selector(selectedButtonTapped), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(with room: Room) {
+        imagesURL = room.imageUrls
+        imageCollectionView.reloadData()
+        pageControl.numberOfPages = room.imageUrls.count
+        titleLabel.text = room.name
+        peculiaritiesCollectionView.configure(with: room)
+        priceView.configure(with: room)
+    }
+    
+    
+    @objc private func selectedButtonTapped() {
+        roomViewDelegate?.didTapped()
     }
     
     private func setupDelegates() {
@@ -136,7 +147,7 @@ extension RoomView {
             imageCollectionView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             imageCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             imageCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            imageCollectionView.heightAnchor.constraint(lessThanOrEqualTo: heightAnchor, multiplier: 0.52, constant: 0.5)
+            imageCollectionView.heightAnchor.constraint(lessThanOrEqualTo: heightAnchor, multiplier: 0.48, constant: 0.5)
         ])
         
         NSLayoutConstraint.activate([
@@ -148,13 +159,15 @@ extension RoomView {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: imageCollectionView.bottomAnchor, constant: 10),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            titleLabel.heightAnchor.constraint(equalToConstant: 56),
         ])
         
         NSLayoutConstraint.activate([
             peculiaritiesCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
             peculiaritiesCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             peculiaritiesCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            peculiaritiesCollectionView.heightAnchor.constraint(greaterThanOrEqualTo: titleLabel.heightAnchor),
+            peculiaritiesCollectionView.heightAnchor.constraint(greaterThanOrEqualToConstant: 29),
         ])
 
         NSLayoutConstraint.activate([
@@ -165,7 +178,7 @@ extension RoomView {
         ])
         
         NSLayoutConstraint.activate([
-            priceView.topAnchor.constraint(equalTo: aboutRoomView.bottomAnchor, constant: 8),
+            priceView.bottomAnchor.constraint(equalTo: selectedButton.topAnchor, constant: -8),
             priceView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             priceView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             priceView.heightAnchor.constraint(equalToConstant: 36),

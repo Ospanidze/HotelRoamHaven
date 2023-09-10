@@ -7,7 +7,13 @@
 
 import UIKit
 
-final class RoomListViewController: UIViewController {
+final class RoomListViewController: UIViewController, UITableViewDelegate {
+    
+    private let networkManager = NetworkManager.shared
+    
+    private var hostel: Hostel?
+    
+    private var rooms: [Room] = []
     
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -27,11 +33,13 @@ final class RoomListViewController: UIViewController {
         setupViews()
         setupLayout()
         setupDelegates()
-       
+        fetchMotel()
     }
     
     
-    func configure(with title: String) {
+    func configure(with hostel: Hostel) {
+        self.hostel = hostel
+        let title = hostel.name
         let truncatedString = String(title.prefix(20))
         self.title = truncatedString
     }
@@ -44,13 +52,27 @@ final class RoomListViewController: UIViewController {
     private func setupViews() {
         view.addSubview(tableView)
     }
+    
+    private func fetchMotel() {
+        networkManager.fetch(Motel.self, from: Link.motel.url) { result in
+            switch result {
+            case .success(let motel):
+                self.rooms = motel.rooms
+                DispatchQueue.main.async { [weak self] in
+                    self?.tableView.reloadData()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
 
 
 
 extension RoomListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        2
+        rooms.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -59,12 +81,18 @@ extension RoomListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
+        cell.peculiarDelegate = self
+        let room = rooms[indexPath.row]
+        cell.configure(with: room)
         return cell
     }
 }
 
-extension RoomListViewController: UITableViewDelegate {
-
+extension RoomListViewController: PeculiarTableViewCellDelegate {
+    func cellButtonTapped() {
+        let vc = RoomViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 extension RoomListViewController {

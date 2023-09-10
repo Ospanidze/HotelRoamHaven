@@ -35,6 +35,11 @@ final class PriceLabelsView: UIView {
         additionalLabel.text = model.priceForIt
     }
     
+    func configure(with room: Room) {
+        priceLabel.text = " oт \(room.price) Р"
+        additionalLabel.text = room.pricePer
+    }
+    
     private func setupComponents() {
         addSubviews(priceLabel, additionalLabel)
         setupLayout()
@@ -50,15 +55,14 @@ extension PriceLabelsView {
         NSLayoutConstraint.activate([
             priceLabel.topAnchor.constraint(equalTo: topAnchor),
             priceLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            priceLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.46),
+            priceLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
             //priceLabel.heightAnchor.constraint(equalToConstant: 26),
         ])
         
         NSLayoutConstraint.activate([
-            additionalLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            additionalLabel.centerYAnchor.constraint(equalTo: priceLabel.centerYAnchor),
             additionalLabel.leadingAnchor.constraint(
-                equalTo: priceLabel.trailingAnchor,
-                constant: 5
+                equalTo: priceLabel.trailingAnchor
             ),
             additionalLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             //addressLabel.heightAnchor.constraint(equalToConstant: 17),

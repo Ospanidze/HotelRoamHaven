@@ -10,7 +10,7 @@ import UIKit
 final class PeculiaritiesCollectionView: UICollectionView {
     
     //weak var dishDelegate: DishCollectionViewDelegate?
-    private var qwer = ["ddsdasdd", "dasdasdsdadsaddada", "fdfdasfjkfaksja"]
+    private var peculiarties: [String] = []
     
     private let identifier = "PeculiaritiesCollectionView"
     
@@ -29,14 +29,19 @@ final class PeculiaritiesCollectionView: UICollectionView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(with room: Room) {
+        peculiarties = room.peculiarities
+        reloadData()
+    }
+    
     private func setupConfigure() {
         translatesAutoresizingMaskIntoConstraints = false
         register(PeculiaritiesCollectionViewCell.self, forCellWithReuseIdentifier: identifier)
     }
     
     private func setupCollectionLayout() {
-        collectionFlowLayout.minimumInteritemSpacing = 5
-        collectionFlowLayout.minimumLineSpacing = 2
+        collectionFlowLayout.minimumInteritemSpacing = 2
+        collectionFlowLayout.minimumLineSpacing = 5
         collectionFlowLayout.scrollDirection = .vertical
         collectionFlowLayout
             .collectionView?
@@ -49,7 +54,7 @@ final class PeculiaritiesCollectionView: UICollectionView {
     }
     
     private func calculateWidthForCell(at indexPath: IndexPath) -> CGFloat {
-        let sampleText = qwer[indexPath.row]
+        let sampleText = peculiarties[indexPath.row]
     
         let font = UIFont.mediumSFPro16() // Установите желаемый шрифт
         let textAttributes: [NSAttributedString.Key: Any] = [.font: font ?? UIFont.systemFont(ofSize: 16)]
@@ -60,7 +65,7 @@ final class PeculiaritiesCollectionView: UICollectionView {
             context: nil
         )
         
-        let cellWidth = (boundingRect.width) + 10
+        let cellWidth = (boundingRect.width) + 20
         return cellWidth
     }
 }
@@ -76,7 +81,7 @@ extension PeculiaritiesCollectionView: UICollectionViewDelegate {
 
 extension PeculiaritiesCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        qwer.count
+        peculiarties.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -91,8 +96,8 @@ extension PeculiaritiesCollectionView: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        let qwe = qwer[indexPath.row]
-        cell.configure(with: qwe)
+        let peculiarty = peculiarties[indexPath.row]
+        cell.configure(with: peculiarty)
         return cell
     }
 }
@@ -103,7 +108,7 @@ extension PeculiaritiesCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         //let collectionViewWidth = collectionView.bounds.width
         let cellWidth = calculateWidthForCell(at: indexPath) // Вычисляем ширину ячейки на основе текста
-        return CGSize(width: cellWidth, height: collectionView.bounds.height)
+        return CGSize(width: cellWidth, height: 29)
         
         //return CGSize(width: cellWidth, height: collectionView.bounds.height)
     }

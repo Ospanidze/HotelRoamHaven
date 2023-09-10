@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol PeculiarTableViewCellDelegate: AnyObject {
+    func cellButtonTapped()
+}
+
 final class PeculiarTableViewCell: UITableViewCell {
+    
+    weak var peculiarDelegate: PeculiarTableViewCellDelegate?
     
     static let identifier = "TouristTableViewCell"
     
@@ -20,15 +26,25 @@ final class PeculiarTableViewCell: UITableViewCell {
         selectionStyle = .none
         setupViews()
         setupLayout()
-       
+        roomView.roomViewDelegate = self
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(with room: Room) {
+        roomView.configure(with: room)
+    }
+    
     private func setupViews() {
         contentView.addSubview(roomView)
+    }
+}
+
+extension PeculiarTableViewCell: RoomViewDelegate {
+    func didTapped() {
+        peculiarDelegate?.cellButtonTapped()
     }
 }
 

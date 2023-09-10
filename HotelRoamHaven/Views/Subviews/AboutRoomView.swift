@@ -18,7 +18,7 @@ final class AboutRoomView: UIView {
     private let chevronImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "chevron.right")?.withRenderingMode(.alwaysTemplate)
-        imageView.tintColor = .blue
+        imageView.tintColor = .blueColor()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -42,17 +42,16 @@ final class AboutRoomView: UIView {
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            chevronImageView.topAnchor.constraint(equalTo: topAnchor),
-            chevronImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            chevronImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            chevronImageView.widthAnchor.constraint(equalTo: chevronImageView.heightAnchor),
+            chevronImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            chevronImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4),
+            //chevronImageView.widthAnchor.constraint(equalToConstant: 6)
         ])
         
         
         NSLayoutConstraint.activate([
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            titleLabel.trailingAnchor.constraint(equalTo: chevronImageView.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: chevronImageView.leadingAnchor, constant: -4),
         ])
     }
 }

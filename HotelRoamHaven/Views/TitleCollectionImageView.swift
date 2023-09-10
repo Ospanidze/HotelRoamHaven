@@ -11,22 +11,7 @@ final class TitleCollectionImageView: UIView {
     
     private var imagesURL: [String] = []
     
-    private let imageCollectionView: UICollectionView = {
-        let collectionFlowLayout = UICollectionViewFlowLayout()
-        collectionFlowLayout.scrollDirection = .horizontal
-        collectionFlowLayout.minimumLineSpacing = 0
-        collectionFlowLayout.minimumInteritemSpacing = 0
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionFlowLayout)
-        collectionView.register(
-            ImageCollectionViewCell.self,
-            forCellWithReuseIdentifier: ImageCollectionViewCell.identifier
-        )
-        collectionView.layer.cornerRadius = 15
-        collectionView.isPagingEnabled = true
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        return collectionView
-    }()
+    private let imageCollectionView = ImageCollectionView()
     
     private lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
@@ -55,6 +40,10 @@ final class TitleCollectionImageView: UIView {
         backgroundColor = .white
         setupComponents()
         setupDelegates()
+        imageCollectionView.register(
+            ImageCollectionViewCell.self,
+            forCellWithReuseIdentifier: ImageCollectionViewCell.identifier
+        )
     }
     
     required init?(coder: NSCoder) {

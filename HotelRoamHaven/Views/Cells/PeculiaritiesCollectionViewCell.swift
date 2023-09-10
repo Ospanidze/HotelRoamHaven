@@ -7,13 +7,7 @@
 
 import UIKit
 
-protocol PeculiaritiesDelegate: AnyObject {
-    func getcgrect()
-}
-
 final class PeculiaritiesCollectionViewCell: UICollectionViewCell {
-    
-    weak var peculiarDelegate: PeculiaritiesDelegate?
     
     private let peculiarLabel = UILabel(
         text: "все включено",
@@ -49,8 +43,9 @@ extension PeculiaritiesCollectionViewCell {
     private func setupLayout() {
         NSLayoutConstraint.activate([
             peculiarLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            peculiarLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            peculiarLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            peculiarLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            //peculiarLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            //peculiarLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
             //peculiarLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.65)
         ])
        
