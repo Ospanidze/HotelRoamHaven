@@ -9,12 +9,20 @@ import UIKit
 
 extension UIFont {
     
+    static func regularSFPro12() -> UIFont? {
+        UIFont(name: "SFProDisplay-Regular", size: 12)
+    }
+    
     static func regularSFPro14() -> UIFont? {
         UIFont(name: "SFProDisplay-Regular", size: 14)
     }
     
     static func regularSFPro16() -> UIFont? {
         UIFont(name: "SFProDisplay-Regular", size: 16)
+    }
+    
+    static func regularSFPro17() -> UIFont? {
+        UIFont(name: "SFProDisplay-Regular", size: 17)
     }
     
     static func regularSFPro18() -> UIFont? {

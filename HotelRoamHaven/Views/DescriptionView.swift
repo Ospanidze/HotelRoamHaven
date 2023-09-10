@@ -8,10 +8,48 @@
 import UIKit
 
 final class DescriptionView: UIView {
+    private let options = Option.getOptions()
     
     private let nameLabel = UILabel(text: "Об Отеле", font: UIFont.mediumSFPro22())
     
-    private let mainStackView = UIStackView()
+    private var mainStackView = UIStackView()
+    
+    private let firstTextLabel = UILabel(
+        text: "String",
+        font: .mediumSFPro16(),
+        textColor: .grayTextColor(),
+        textAlingment: .center,
+        backColor: .grayBackgroundColor(),
+        numberOfLines: 0
+    )
+    
+    private let secondTextLabel = UILabel(
+        text: "String",
+        font: .mediumSFPro16(),
+        textColor: .grayTextColor(),
+        textAlingment: .center,
+        backColor: .grayBackgroundColor(),
+        numberOfLines: 0
+        
+    )
+    
+    private let thridTextLabel = UILabel(
+        text: "String",
+        font: .mediumSFPro16(),
+        textColor: .grayTextColor(),
+        textAlingment: .center,
+        backColor: .grayBackgroundColor(),
+        numberOfLines: 0
+    )
+    
+    private let fourthTextLabel = UILabel(
+        text: "String",
+        font: .mediumSFPro16(),
+        textColor: .grayTextColor(),
+        textAlingment: .center,
+        backColor: .grayBackgroundColor(),
+        numberOfLines: 0
+    )
     
     private let descriptionLabel = UILabel(
         text: "dasdasdfsfsfssfsdfafadfjdhfkjadfhakdfjhaksdjfhjsfhakfasdjf",
@@ -20,8 +58,14 @@ final class DescriptionView: UIView {
     )
     
     private let descriptionTableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .plain)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        let tableView = UITableView()
+        tableView.register(
+            OptionTableViewCell.self,
+            forCellReuseIdentifier: OptionTableViewCell.identifier
+        )
+        tableView.rowHeight = 60
+        tableView.backgroundColor = .grayBackgroundColor()
+        tableView.layer.cornerRadius = 10
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -39,12 +83,22 @@ final class DescriptionView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(with model: Hostel) {
+        descriptionLabel.text = model.aboutTheHotel.description
+        firstTextLabel.text = model.aboutTheHotel.peculiarities[0]
+        secondTextLabel.text = model.aboutTheHotel.peculiarities[1]
+        thridTextLabel.text = model.aboutTheHotel.peculiarities[2]
+        fourthTextLabel.text = model.aboutTheHotel.peculiarities[3]
+    }
+    
     private func setupComponents() {
-        mainStackView.translatesAutoresizingMaskIntoConstraints = false
-        descriptionTableView.rowHeight = 66
+        //descriptionTableView.rowHeight = 44
         addSubviews(
             nameLabel,
-            mainStackView,
+            firstTextLabel,
+            secondTextLabel,
+            thridTextLabel,
+            fourthTextLabel,
             descriptionLabel,
             descriptionTableView
             )
@@ -59,12 +113,20 @@ final class DescriptionView: UIView {
 
 extension DescriptionView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        options.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "Test"
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: OptionTableViewCell.identifier,
+            for: indexPath
+        )
+        guard let cell = cell as? OptionTableViewCell else {
+            return UITableViewCell()
+        }
+        let option = options[indexPath.row]
+        
+        cell.configure(with: option)
         return cell
     }
 }
@@ -78,25 +140,47 @@ extension DescriptionView {
         ])
         
         NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
-            mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            mainStackView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.78),
-            mainStackView.heightAnchor.constraint(equalToConstant: 66)
+            firstTextLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 15),
+            firstTextLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            firstTextLabel.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.5)
+            //firstTextLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 26)
         ])
         
         NSLayoutConstraint.activate([
-            descriptionLabel.topAnchor.constraint(equalTo: mainStackView.bottomAnchor, constant: 10),
+            secondTextLabel.topAnchor.constraint(equalTo: firstTextLabel.topAnchor),
+            //firstTextLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            //firstTextLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.6),
+            secondTextLabel.leadingAnchor.constraint(equalTo: firstTextLabel.trailingAnchor, constant: 5),
+            secondTextLabel.heightAnchor.constraint(equalToConstant: 26)
+        ])
+        
+        NSLayoutConstraint.activate([
+            thridTextLabel.topAnchor.constraint(equalTo: firstTextLabel.bottomAnchor, constant: 10),
+            thridTextLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            thridTextLabel.heightAnchor.constraint(equalToConstant: 26)
+        ])
+        
+        NSLayoutConstraint.activate([
+            fourthTextLabel.topAnchor.constraint(equalTo: firstTextLabel.bottomAnchor, constant: 10),
+            fourthTextLabel.leadingAnchor.constraint(equalTo: thridTextLabel.trailingAnchor, constant: 16),
+            fourthTextLabel.heightAnchor.constraint(equalToConstant: 26)
+        ])
+        
+        
+        NSLayoutConstraint.activate([
+            descriptionLabel.topAnchor.constraint(equalTo: fourthTextLabel.bottomAnchor, constant: 15),
             descriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            descriptionLabel.heightAnchor.constraint(equalToConstant: 76),
+            //descriptionLabel.heightAnchor.constraint(equalToConstant: 76),
         ])
         
         NSLayoutConstraint.activate([
-            descriptionTableView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10),
+            descriptionTableView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 20),
             descriptionTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             descriptionTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            descriptionTableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
+            //descriptionTableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             //descriptionTableView.heightAnchor.constraint(equalToConstant: 184)
+            descriptionTableView.heightAnchor.constraint(greaterThanOrEqualTo: heightAnchor, multiplier: 0.4)
         ])
     }
 }

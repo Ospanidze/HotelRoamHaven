@@ -16,7 +16,6 @@ extension UILabel {
         self.textAlignment = textAlingment
         self.backgroundColor = backColor
         self.numberOfLines = numberOfLines
-        self.minimumScaleFactor = 0.7
         self.translatesAutoresizingMaskIntoConstraints = false
     }
 }

@@ -1,13 +1,13 @@
 //
-//  TitleCollectionImageView.swift
+//  RoomView.swift
 //  HotelRoamHaven
 //
-//  Created by Айдар Оспанов on 07.09.2023.
+//  Created by Айдар Оспанов on 10.09.2023.
 //
 
 import UIKit
 
-final class TitleCollectionImageView: UIView {
+final class RoomView: UIView {
     
     private var imagesURL: [String] = []
     
@@ -36,20 +36,30 @@ final class TitleCollectionImageView: UIView {
         pageControl.currentPageIndicatorTintColor = .black
         pageControl.layer.cornerRadius = 10
         pageControl.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
-        //pageControl.isEnabled = false
+        pageControl.isEnabled = false
         pageControl.translatesAutoresizingMaskIntoConstraints = false
-        pageControl.addTarget(self, action: #selector(pageControlValueChanged), for: .valueChanged)
+        //pageControl.addTarget(self, action: #selector(pageControlValueChanged), for: .valueChanged)
         return pageControl
     }()
     
-    //private let 
+    private let titleLabel = UILabel(
+        text: "dasdaasda",
+        font: .mediumSFPro22(),
+        numberOfLines: 0
+    )
     
-    private let ratingView = RatingView()
-    private let nameLabelsView = NameLabelsView()
-    private let priceLabelsView = PriceLabelsView()
+    private let peculiaritiesCollectionView = PeculiaritiesCollectionView()
+    private let aboutRoomView = AboutRoomView()
+    private let priceView = PriceLabelsView()
+    
+    private lazy var selectedButton = UIButton(
+        title: "Выбрать номер",
+        font: UIFont.mediumSFPro16()
+    )
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 12
         backgroundColor = .white
@@ -61,21 +71,6 @@ final class TitleCollectionImageView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with model: Hostel) {
-        ratingView.configure(with: model)
-        nameLabelsView.configure(with: model)
-        priceLabelsView.configure(with: model)
-        imagesURL = model.imageUrls
-        imageCollectionView.reloadData()
-        pageControl.numberOfPages = model.imageUrls.count
-    }
-    
-    @objc func pageControlValueChanged() {
-        let currentPage = pageControl.currentPage
-        let contentOffset = CGPoint(x: CGFloat(currentPage) * imageCollectionView.frame.size.width, y: 0)
-        imageCollectionView.setContentOffset(contentOffset, animated: true)
-    }
-    
     private func setupDelegates() {
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
@@ -85,9 +80,11 @@ final class TitleCollectionImageView: UIView {
         addSubviews(
             imageCollectionView,
             pageControl,
-            ratingView,
-            nameLabelsView,
-            priceLabelsView
+            titleLabel,
+            peculiaritiesCollectionView,
+            aboutRoomView,
+            priceView,
+            selectedButton
         )
         setupLayout()
     }
@@ -97,7 +94,7 @@ final class TitleCollectionImageView: UIView {
     }
 }
 
-extension TitleCollectionImageView: UICollectionViewDataSource {
+extension RoomView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         imagesURL.count
     }
@@ -118,14 +115,10 @@ extension TitleCollectionImageView: UICollectionViewDataSource {
     }
 }
 
-extension TitleCollectionImageView: UICollectionViewDelegateFlowLayout {
+extension RoomView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let width = collectionView.bounds.width
-//        let height = collectionView.bounds.height
-//        return CGSize(width: width, height: height)
         collectionView.bounds.size
     }
-    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pageWidth = scrollView.frame.size.width
@@ -137,13 +130,13 @@ extension TitleCollectionImageView: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension TitleCollectionImageView {
+extension RoomView {
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            imageCollectionView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            imageCollectionView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             imageCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             imageCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            imageCollectionView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.56),
+            imageCollectionView.heightAnchor.constraint(lessThanOrEqualTo: heightAnchor, multiplier: 0.52, constant: 0.5)
         ])
         
         NSLayoutConstraint.activate([
@@ -153,25 +146,38 @@ extension TitleCollectionImageView {
         ])
         
         NSLayoutConstraint.activate([
-            ratingView.topAnchor.constraint(equalTo: imageCollectionView.bottomAnchor, constant: 15),
-            ratingView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            ratingView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.38),
-            ratingView.heightAnchor.constraint(equalToConstant: 29),
+            titleLabel.topAnchor.constraint(equalTo: imageCollectionView.bottomAnchor, constant: 10),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
         ])
         
         NSLayoutConstraint.activate([
-            nameLabelsView.topAnchor.constraint(equalTo: ratingView.bottomAnchor, constant: 10),
-            nameLabelsView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            nameLabelsView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            nameLabelsView.heightAnchor.constraint(equalToConstant: 60),
+            peculiaritiesCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+            peculiaritiesCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            peculiaritiesCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            peculiaritiesCollectionView.heightAnchor.constraint(greaterThanOrEqualTo: titleLabel.heightAnchor),
+        ])
+
+        NSLayoutConstraint.activate([
+            aboutRoomView.topAnchor.constraint(equalTo: peculiaritiesCollectionView.bottomAnchor, constant: 8),
+            aboutRoomView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            aboutRoomView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.56),
+            aboutRoomView.heightAnchor.constraint(equalToConstant: 29),
         ])
         
+        NSLayoutConstraint.activate([
+            priceView.topAnchor.constraint(equalTo: aboutRoomView.bottomAnchor, constant: 8),
+            priceView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            priceView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            priceView.heightAnchor.constraint(equalToConstant: 36),
+        ])
+
+//
         NSLayoutConstraint.activate([
             //priceLabelsView.topAnchor.constraint(equalTo: nameLabelsView.bottomAnchor, constant: 15),
-            priceLabelsView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            priceLabelsView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            priceLabelsView.heightAnchor.constraint(equalToConstant: 36),
-            priceLabelsView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
+            selectedButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            selectedButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            selectedButton.heightAnchor.constraint(equalToConstant: 48),
+            selectedButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
         ])
     }
 }

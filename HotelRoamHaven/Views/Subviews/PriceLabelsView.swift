@@ -55,7 +55,7 @@ extension PriceLabelsView {
         ])
         
         NSLayoutConstraint.activate([
-            additionalLabel.centerYAnchor.constraint(equalTo: priceLabel.centerYAnchor),
+            additionalLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
             additionalLabel.leadingAnchor.constraint(
                 equalTo: priceLabel.trailingAnchor,
                 constant: 5

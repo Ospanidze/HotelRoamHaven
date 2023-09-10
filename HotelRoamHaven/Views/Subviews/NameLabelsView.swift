@@ -11,7 +11,8 @@ final class NameLabelsView: UIView {
     
     private let nameLabel = UILabel(
         text: "Steigenberber",
-        font: .mediumSFPro22()
+        font: .mediumSFPro22(),
+        numberOfLines: 0
     )
     
     private let adressLabel = UILabel(
@@ -55,7 +56,7 @@ extension NameLabelsView {
         ])
         
         NSLayoutConstraint.activate([
-            adressLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
+            adressLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5),
             adressLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             adressLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             //addressLabel.heightAnchor.constraint(equalToConstant: 17),

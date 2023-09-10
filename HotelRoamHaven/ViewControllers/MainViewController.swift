@@ -13,30 +13,20 @@ final class MainViewController: UIViewController {
     
     private var hostel: Hostel?
     
-    private var contentSize: CGSize {
-        CGSize(width: view.frame.width, height: view.frame.height + 50)
-    }
+    private let mainStackView = UIStackView(spacing: 8, aligment: .fill, axis: .vertical, distribution: .fillEqually)
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .grayBackgroundColor()
         scrollView.showsVerticalScrollIndicator = true
-        scrollView.contentSize = contentSize
         scrollView.alwaysBounceVertical = true
-        scrollView.isDirectionalLockEnabled = false
+        scrollView.layoutIfNeeded()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
     
-    private lazy var contentView: UIView = {
-        let view = UIView()
-        view.frame.size = contentSize
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     private lazy var selectedButton = UIButton(
-        title: "К выбоору номера",
+        title: "К выбору номера",
         font: UIFont.mediumSFPro16()
     )
     
@@ -49,19 +39,34 @@ final class MainViewController: UIViewController {
         setupComponents()
         setupNavigationBar()
         fetchHostel()
+        
+        selectedButton.addTarget(
+            self,
+            action: #selector(selectedButtonTapped),
+            for: .touchUpInside
+        )
+    }
+    
+    @objc private func selectedButtonTapped() {
+        guard let hostel = hostel else { return }
+        let vc = RoomListViewController()
+        vc.configure(with: hostel.name)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func setupComponents() {
         view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        contentView.addSubview(titleCollectionImageView)
-        contentView.addSubview(descriptionView)
+        scrollView.addSubview(mainStackView)
+        mainStackView.addArrangedSubview(titleCollectionImageView)
+        mainStackView.addArrangedSubview(descriptionView)
         view.addSubview(selectedButton)
         setupLayout()
     }
     
     private func setupHostelModel(_ hostel: Hostel) {
+        self.hostel = hostel
         titleCollectionImageView.configure(with: hostel)
+        descriptionView.configure(with: hostel)
     }
     
     private func fetchHostel() {
@@ -89,9 +94,10 @@ extension MainViewController {
         navBarAppearance.backgroundColor = .white
         
         navigationController?.navigationBar.barStyle = .default
-        navigationController?.navigationBar.standardAppearance = navBarAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-        //navigationController?.navigationBar.tintColor = .white
+        //navigationController?.navigationBar.standardAppearance = navBarAppearance
+        //navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+        navigationController?.navigationBar.tintColor = .label
+        navigationController?.navigationBar.backgroundColor = .white
     }
 }
 
@@ -111,19 +117,13 @@ extension MainViewController {
             scrollView.bottomAnchor.constraint(equalTo: selectedButton.topAnchor, constant: -10)
         ])
         
-        NSLayoutConstraint.activate([
-            titleCollectionImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            titleCollectionImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            titleCollectionImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            titleCollectionImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5),
-        ])
+        titleCollectionImageView.heightAnchor.constraint(equalToConstant: 430).isActive = true
         
         NSLayoutConstraint.activate([
-            descriptionView.topAnchor.constraint(equalTo: titleCollectionImageView.bottomAnchor, constant: 5),
-            descriptionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            descriptionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            descriptionView.heightAnchor.constraint(equalTo: titleCollectionImageView.heightAnchor),
-            //descriptionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            mainStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            mainStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
         ])
     }
 }
