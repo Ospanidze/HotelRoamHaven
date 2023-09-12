@@ -41,7 +41,7 @@ final class RoomView: UIView {
     
     private let peculiaritiesCollectionView = PeculiaritiesCollectionView()
     private let aboutRoomView = AboutRoomView()
-    private let priceView = PriceLabelsView()
+    private let priceView = PriceView()
     
     private lazy var selectedButton = UIButton(
         title: "Выбрать номер",
@@ -50,18 +50,9 @@ final class RoomView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        translatesAutoresizingMaskIntoConstraints = false
-        layer.cornerRadius = 12
-        backgroundColor = .white
+        prepaView()
         setupComponents()
         setupDelegates()
-        imageCollectionView.register(
-            ImageCollectionViewCell.self,
-            forCellWithReuseIdentifier: ImageCollectionViewCell.identifier
-        )
-        
-        selectedButton.addTarget(self, action: #selector(selectedButtonTapped), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -77,9 +68,10 @@ final class RoomView: UIView {
         priceView.configure(with: room)
     }
     
-    
-    @objc private func selectedButtonTapped() {
-        roomViewDelegate?.didTapped()
+    private func prepaView() {
+        translatesAutoresizingMaskIntoConstraints = false
+        layer.cornerRadius = 12
+        backgroundColor = .white
     }
     
     private func setupDelegates() {
@@ -98,10 +90,25 @@ final class RoomView: UIView {
             selectedButton
         )
         setupLayout()
+        
+        imageCollectionView.register(
+            ImageCollectionViewCell.self,
+            forCellWithReuseIdentifier: ImageCollectionViewCell.identifier
+        )
+        
+        selectedButton.addTarget(
+            self,
+            action: #selector(selectedButtonTapped),
+            for: .touchUpInside
+        )
     }
     
     private func addSubviews(_ subviews: UIView...) {
         subviews.forEach { addSubview($0) }
+    }
+    
+    @objc private func selectedButtonTapped() {
+        roomViewDelegate?.didTapped()
     }
 }
 

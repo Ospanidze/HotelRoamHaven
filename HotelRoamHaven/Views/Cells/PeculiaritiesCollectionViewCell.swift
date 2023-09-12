@@ -9,18 +9,25 @@ import UIKit
 
 final class PeculiaritiesCollectionViewCell: UICollectionViewCell {
     
+//    private let backView: UIView = {
+//        let view = UIView()
+//        view.backgroundColor = .grayBackgroundColor()
+//        view.layer.cornerRadius = 12
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        return view
+//    }()
+    
     private let peculiarLabel = UILabel(
         text: "все включено",
         font: .mediumSFPro16(),
-        textColor: .grayTextColor()
+        textColor: .grayTextColor(),
+        numberOfLines: 0
     )
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .grayBackgroundColor()
-        layer.cornerRadius = 5
-        
+        prepareView()
         setupViews()
         setupLayout()
     }
@@ -34,19 +41,24 @@ final class PeculiaritiesCollectionViewCell: UICollectionViewCell {
         peculiarLabel.text = peculiarStr
     }
     
+    private func prepareView() {
+        layer.cornerRadius = 12
+        backgroundColor = .grayBackgroundColor()
+    }
+    
     private func setupViews() {
+       
         addSubview(peculiarLabel)
+        //backView.addSubview(peculiarLabel)
     }
 }
 
 extension PeculiaritiesCollectionViewCell {
     private func setupLayout() {
+
         NSLayoutConstraint.activate([
             peculiarLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             peculiarLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            //peculiarLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            //peculiarLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-            //peculiarLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.65)
         ])
        
     }

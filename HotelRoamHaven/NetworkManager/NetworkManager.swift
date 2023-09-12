@@ -10,6 +10,7 @@ import Foundation
 enum Link {
     case hostel
     case motel
+    case infoHostel
     
     var url: URL? {
         switch self {
@@ -17,6 +18,8 @@ enum Link {
             return URL(string: "https://run.mocky.io/v3/35e0d18e-2521-4f1b-a575-f0fe366f66e3")
         case .motel:
             return URL(string: "https://run.mocky.io/v3/f9a38183-6f95-43aa-853a-9c83cbb05ecd")
+        case .infoHostel:
+            return URL(string: "https://run.mocky.io/v3/e8868481-743f-4eb2-a0d7-2bc4012275c8")
         }
     }
 }
@@ -48,6 +51,7 @@ final class NetworkManager {
             }
             
             let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
             
             do {
                 let dataModel = try decoder.decode(T.self, from: data)

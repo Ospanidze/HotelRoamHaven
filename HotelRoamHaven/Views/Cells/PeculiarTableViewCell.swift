@@ -21,12 +21,10 @@ final class PeculiarTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        layer.cornerRadius = 12
-        backgroundColor = .grayBackgroundColor()
-        selectionStyle = .none
+        prepareView()
         setupViews()
         setupLayout()
-        roomView.roomViewDelegate = self
+        setupDelegates()
     }
     
     required init?(coder: NSCoder) {
@@ -37,8 +35,18 @@ final class PeculiarTableViewCell: UITableViewCell {
         roomView.configure(with: room)
     }
     
+    private func prepareView() {
+        layer.cornerRadius = 12
+        backgroundColor = .grayBackgroundColor()
+        selectionStyle = .none
+    }
+    
     private func setupViews() {
         contentView.addSubview(roomView)
+    }
+    
+    private func setupDelegates() {
+        roomView.roomViewDelegate = self
     }
 }
 

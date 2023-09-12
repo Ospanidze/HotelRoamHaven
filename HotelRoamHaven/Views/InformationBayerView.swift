@@ -14,8 +14,8 @@ final class InformationBayerView: UIView {
         font: .mediumSFPro22()
     )
     
-    private let numberTitleTextView = TitleTextFieldView(title: "номер")
-    private let emailTitleTextView = TitleTextFieldView(title: "почта")
+    private let numberTitleTextView = TitleTextFieldView()
+    private let emailTitleTextView = TitleTextFieldView()
     
     private let notificationLabel = UILabel(
         text: "Эти данные никому не передаются. После оплаты мы вышли чек на указанный вами номер и почту",

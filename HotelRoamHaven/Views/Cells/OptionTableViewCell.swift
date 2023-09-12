@@ -32,7 +32,7 @@ final class OptionTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .grayBackgroundColor()
+        prepareView()
         setupViews()
         setupLayout()
     }
@@ -44,6 +44,10 @@ final class OptionTableViewCell: UITableViewCell {
     func configure(with option: Option) {
         titleLabel.text = option.title
         iconImageView.image = UIImage(systemName: option.imageString)?.withRenderingMode(.alwaysOriginal) ?? UIImage(named: option.imageString)
+    }
+    
+    private func prepareView() {
+        backgroundColor = .grayBackgroundColor()
     }
     
     private func setupViews() {

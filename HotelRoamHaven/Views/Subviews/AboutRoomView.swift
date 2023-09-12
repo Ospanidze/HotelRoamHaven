@@ -25,14 +25,18 @@ final class AboutRoomView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .blueColor().withAlphaComponent(0.1)
+        prepareView()
         setupViews()
         setupLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func prepareView() {
+        translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .blueColor().withAlphaComponent(0.1)
     }
     
     private func setupViews() {

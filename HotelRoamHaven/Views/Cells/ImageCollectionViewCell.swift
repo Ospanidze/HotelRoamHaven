@@ -40,7 +40,8 @@ final class ImageCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupComponents()
+        setupViews()
+        setupLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -59,10 +60,9 @@ final class ImageCollectionViewCell: UICollectionViewCell {
         
     }
     
-    private func setupComponents() {
+    private func setupViews() {
         addSubview(hotelImageView)
         addSubview(activityIndicator)
-        setupLayout()
     }
 }
 

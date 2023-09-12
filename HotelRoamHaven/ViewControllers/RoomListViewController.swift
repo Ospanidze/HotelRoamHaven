@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class RoomListViewController: UIViewController, UITableViewDelegate {
+final class RoomListViewController: UIViewController {
     
     private let networkManager = NetworkManager.shared
     
@@ -46,7 +46,7 @@ final class RoomListViewController: UIViewController, UITableViewDelegate {
     
     private func setupDelegates() {
         tableView.dataSource = self
-        tableView.delegate = self
+        //tableView.delegate = self
     }
     
     private func setupViews() {
@@ -65,6 +65,10 @@ final class RoomListViewController: UIViewController, UITableViewDelegate {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    deinit {
+        print("view controller dead")
     }
 }
 
@@ -90,7 +94,7 @@ extension RoomListViewController: UITableViewDataSource {
 
 extension RoomListViewController: PeculiarTableViewCellDelegate {
     func cellButtonTapped() {
-        let vc = RoomViewController()
+        let vc = TouristViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
 }

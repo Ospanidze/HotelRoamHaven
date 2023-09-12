@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TextFiledView: UITextField {
+final class TextFieldView: UIView {
     
     private let titleTextField: UITextField = {
         let textField = UITextField()
@@ -18,31 +18,54 @@ final class TextFiledView: UITextField {
     }()
     
     
-    init(placeholder: String) {
-        super.init(frame: .zero)
-        titleTextField.placeholder = placeholder
-        translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .grayBackgroundColor()
-        layer.cornerRadius = 10
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
+        prepareView()
         setupViews()
         setupLayout()
+        setupPlaceholder()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(with placeholder: String) {
+        titleTextField.placeholder = placeholder
+    }
+    
+    func getValueCell() -> String {
+        titleTextField.text ?? ""
+    }
+    
+    private func prepareView() {
+        translatesAutoresizingMaskIntoConstraints = false
+        layer.cornerRadius = 10
+        backgroundColor = .grayBackgroundColor()
+    }
     
     private func setupViews() {
         addSubview(titleTextField)
     }
+    
+    private func setupPlaceholder() {
+        let font = UIFont.regularSFPro17()
+        
+        titleTextField.attributedPlaceholder = NSAttributedString(
+            string: "Введите данные",
+            attributes: [
+                NSAttributedString.Key.foregroundColor: UIColor.lightGray,
+                NSAttributedString.Key.font: font as Any
+            ]
+        )
+    }
 }
 
-extension TextFiledView {
+extension TextFieldView {
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            titleTextField.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            titleTextField.centerYAnchor.constraint(equalTo: centerYAnchor),
             titleTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
         ])
     }

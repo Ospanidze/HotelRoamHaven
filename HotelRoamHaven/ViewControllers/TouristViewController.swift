@@ -8,66 +8,120 @@
 import UIKit
 
 final class TouristViewController: UIViewController {
-
-    var touristTabs: [InformationTouristView] = []
-    let scrollView = UIScrollView()
-    let stackView = UIStackView()
-    let addButton = UIButton()
-
+    
+    private let networkManager = NetworkManager.shared
+    
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.backgroundColor = .grayBackgroundColor()
+        scrollView.showsVerticalScrollIndicator = true
+        scrollView.alwaysBounceVertical = true
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    private let touristStackView = UIStackView(
+        spacing: 8,
+        aligment: .fill,
+        axis: .vertical,
+        distribution: .fillProportionally
+    )
+    
+    private let reservationView = ReservationNameView()
+    
+    private let reservationTableView = ReservationTableView()
+    
+    private let informationBayerView = InformationBayerView()
+    
+    private let informationTouristView = InformationTouristView()
+    
+    private let addButtonView = AddTouristView()
+    
+    private let totalView = TotalTableView()
+    
+    private lazy var selectedButton = UIButton(
+        title: "К выбору номера",
+        font: UIFont.mediumSFPro16()
+    )
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        // Создаем UIScrollView и настраиваем его
-        scrollView.frame = view.bounds
-        scrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.addSubview(scrollView)
+        setupComponents()
+        fetchInfoHostel()
+    }
 
-        // Создаем UIStackView внутри UIScrollView
-        stackView.axis = .vertical
-        stackView.spacing = 10
-        stackView.frame = scrollView.bounds
-        scrollView.addSubview(stackView)
-
-        // Добавляем кнопку "Добавить туриста"
-        addButton.setTitle("Добавить туриста", for: .normal)
-        addButton.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        addButton.backgroundColor = .black
-        addButton.addTarget(self, action: #selector(addTouristButtonTapped), for: .touchUpInside)
-        stackView.addArrangedSubview(addButton)
-
-        // Добавляем первую вкладку "Первый турист"
-        addTouristTab()
+    private func setupComponents() {
+        prepareView()
+        setupViews()
         setupLayout()
     }
-
-    @objc func addTouristButtonTapped() {
-        // Создаем и настраиваем новую вкладку
-        let touristTab = InformationTouristView()
-        touristTab.isHidden = true // Сначала скрываем новую вкладку
-        stackView.addArrangedSubview(touristTab)
-        touristTabs.append(touristTab)
-        
-        // Анимированно раскрываем новую вкладку
-        UIView.animate(withDuration: 0.3) {
-            touristTab.isHidden = false
-        }
-    }
-
-    func addTouristTab() {
-
-        // Создаем и настраиваем новую вкладку
-        let touristTab = InformationTouristView()
-        //touristTab.isHidden = false // По умолчанию видимая
-        stackView.addArrangedSubview(touristTab)
-        touristTabs.append(touristTab)
+    
+    private func prepareView() {
+        title = "Бронирование"
+        view.backgroundColor = .white
     }
     
+    private func setupViews() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(touristStackView)
+        touristStackView.addArrangedSubview(reservationView)
+        touristStackView.addArrangedSubview(reservationTableView)
+        touristStackView.addArrangedSubview(informationBayerView)
+        touristStackView.addArrangedSubview(informationTouristView)
+        touristStackView.addArrangedSubview(addButtonView)
+        touristStackView.addArrangedSubview(totalView)
+        view.addSubview(selectedButton)
+    }
+    
+    private func configure(with model: InfoHostel) {
+        reservationView.configure(with: model)
+        reservationTableView.configure(with: model)
+        totalView.configure(with: model)
+    }
+    
+    private func fetchInfoHostel() {
+        //Logger
+        networkManager.fetch(InfoHostel.self, from: Link.infoHostel.url) { [weak self] result in
+            switch result {
+            case .success(let infoHostel):
+                DispatchQueue.main.async {
+                    self?.configure(with: infoHostel)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+}
+
+extension TouristViewController {
     private func setupLayout() {
-//        NSLayoutConstraint.activate([
-//            addButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -34),
-//            addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            addButton.heightAnchor.constraint(equalToConstant: 34),
-//            addButton.widthAnchor.constraint(equalToConstant: 100)
-//        ])
+        NSLayoutConstraint.activate([
+            selectedButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -34),
+            selectedButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            selectedButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            selectedButton.heightAnchor.constraint(equalToConstant: 48)
+        ])
+        
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: selectedButton.topAnchor, constant: -10)
+        ])
+        
+        reservationView.heightAnchor.constraint(equalToConstant: 130).isActive = true
+        reservationTableView.heightAnchor.constraint(equalToConstant: 280).isActive = true
+        informationBayerView.heightAnchor.constraint(equalToConstant: 232).isActive = true
+        informationTouristView.heightAnchor.constraint(equalToConstant: 500).isActive = true
+        addButtonView.heightAnchor.constraint(equalToConstant: 58).isActive = true
+        totalView.heightAnchor.constraint(equalToConstant: 156).isActive = true
+        
+        NSLayoutConstraint.activate([
+            touristStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            touristStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            touristStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            touristStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+        ])
     }
 }

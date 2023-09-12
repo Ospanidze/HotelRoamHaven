@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PriceLabelsView: UIView {
+final class PriceView: UIView {
     
     private let priceLabel = UILabel(
         text: "от 134 436 Р",
@@ -22,7 +22,7 @@ final class PriceLabelsView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        translatesAutoresizingMaskIntoConstraints = false
+        prepareView()
         setupComponents()
     }
     
@@ -40,6 +40,10 @@ final class PriceLabelsView: UIView {
         additionalLabel.text = room.pricePer
     }
     
+    private func prepareView() {
+        translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     private func setupComponents() {
         addSubviews(priceLabel, additionalLabel)
         setupLayout()
@@ -50,7 +54,7 @@ final class PriceLabelsView: UIView {
     }
 }
 
-extension PriceLabelsView {
+extension PriceView {
     private func setupLayout() {
         NSLayoutConstraint.activate([
             priceLabel.topAnchor.constraint(equalTo: topAnchor),

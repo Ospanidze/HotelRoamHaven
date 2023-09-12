@@ -20,7 +20,7 @@ final class PeculiaritiesCollectionView: UICollectionView {
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: collectionFlowLayout)
         
-        setupConfigure()
+        prepareView()
         setupCollectionLayout()
         setupDelegate()
     }
@@ -34,7 +34,7 @@ final class PeculiaritiesCollectionView: UICollectionView {
         reloadData()
     }
     
-    private func setupConfigure() {
+    private func prepareView() {
         translatesAutoresizingMaskIntoConstraints = false
         register(PeculiaritiesCollectionViewCell.self, forCellWithReuseIdentifier: identifier)
     }
@@ -52,14 +52,14 @@ final class PeculiaritiesCollectionView: UICollectionView {
         dataSource = self
         delegate = self
     }
-    
+//
     private func calculateWidthForCell(at indexPath: IndexPath) -> CGFloat {
         let sampleText = peculiarties[indexPath.row]
-    
-        let font = UIFont.mediumSFPro16() // Установите желаемый шрифт
+
+        let font = UIFont.mediumSFPro16()
         let textAttributes: [NSAttributedString.Key: Any] = [.font: font ?? UIFont.systemFont(ofSize: 16)]
         let boundingRect = (sampleText as NSString).boundingRect(
-            with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: 19), // Ширина не ограничена
+            with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: 19),
             options: .usesLineFragmentOrigin,
             attributes: textAttributes,
             context: nil
@@ -77,7 +77,7 @@ extension PeculiaritiesCollectionView: UICollectionViewDelegate {
     }
 }
 
-//MARK: UICollectionViewDataSource
+//MARK: - UICollectionViewDataSource
 
 extension PeculiaritiesCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -106,9 +106,12 @@ extension PeculiaritiesCollectionView: UICollectionViewDataSource {
 
 extension PeculiaritiesCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //let collectionViewWidth = collectionView.bounds.width
-        let cellWidth = calculateWidthForCell(at: indexPath) // Вычисляем ширину ячейки на основе текста
-        return CGSize(width: cellWidth, height: 29)
+//        let collectionViewWidth = collectionView.bounds.width
+//        
+//        let cellWidth = collectionViewWidth / 2
+        let cellHeight = collectionView.bounds.height
+        let cellWidth = calculateWidthForCell(at: indexPath)
+        return CGSize(width: cellWidth, height: cellHeight)
         
         //return CGSize(width: cellWidth, height: collectionView.bounds.height)
     }

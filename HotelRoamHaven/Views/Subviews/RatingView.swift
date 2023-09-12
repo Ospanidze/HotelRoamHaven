@@ -27,10 +27,7 @@ final class RatingView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .white
-        layer.cornerRadius = 5
-        backgroundColor = .orangeColor()
+        prepareView()
         setupComponents()
     }
     
@@ -40,6 +37,17 @@ final class RatingView: UIView {
     
     func configure(with model: Hostel) {
         numberRatingLabel.text = "\(model.rating) " + model.ratingName
+    }
+    
+    func configure(with model: InfoHostel) {
+        numberRatingLabel.text = "\(model.horating) " + model.ratingName
+    }
+    
+    private func prepareView() {
+        translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .white
+        layer.cornerRadius = 5
+        backgroundColor = .orangeColor()
     }
     
     private func setupComponents() {
@@ -69,7 +77,7 @@ extension RatingView {
                 constant: 3
             ),
             numberRatingLabel.heightAnchor.constraint(equalToConstant: 15),
-            numberRatingLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            numberRatingLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
         ])
     }
 }

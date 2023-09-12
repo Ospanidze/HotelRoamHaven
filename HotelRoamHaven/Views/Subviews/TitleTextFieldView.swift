@@ -6,6 +6,7 @@
 //
 
 import UIKit
+//import libPhoneNumber_iOS
 
 final class TitleTextFieldView: UIView {
     
@@ -17,31 +18,51 @@ final class TitleTextFieldView: UIView {
     
     private let titleTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "+7(***)***-**-**"
+        textField.placeholder = "Нет данных"
         textField.font = .regularSFPro16()
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     
-    init(title: String) {
-        super.init(frame: .zero)
-        titleLabel.text = title
-        
-        translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .grayBackgroundColor()
-        layer.cornerRadius = 10
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        prepareView()
         setupViews()
         setupLayout()
+        setupDelegates()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(with title: String) {
+        titleLabel.text = title
+    }
+    
+    func getVallueCell() -> String {
+        titleTextField.text ?? ""
+    }
+    
+    private func prepareView() {
+        translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .grayBackgroundColor()
+        layer.cornerRadius = 10
+    }
+    
     private func setupViews() {
         addSubview(titleLabel)
         addSubview(titleTextField)
     }
+    
+    private func setupDelegates() {
+        titleTextField.delegate = self
+    }
+}
+
+extension TitleTextFieldView: UITextFieldDelegate {
+    
+
 }
 
 extension TitleTextFieldView {

@@ -30,8 +30,8 @@ final class TitleCollectionImageView: UIView {
     //private let 
     
     private let ratingView = RatingView()
-    private let nameLabelsView = NameLabelsView()
-    private let priceLabelsView = PriceLabelsView()
+    private let nameLabelsView = NameView()
+    private let priceLabelsView = PriceView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -144,7 +144,6 @@ extension TitleCollectionImageView {
         NSLayoutConstraint.activate([
             ratingView.topAnchor.constraint(equalTo: imageCollectionView.bottomAnchor, constant: 15),
             ratingView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            ratingView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.38),
             ratingView.heightAnchor.constraint(equalToConstant: 29),
         ])
         

@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol AddTouristViewDelegate: AnyObject {
+    func addNewExpanded()
+}
+
 final class AddTouristView: UIView {
+    
+    weak var addTouristViewDelegate: AddTouristViewDelegate?
     
     private let titleLabel = UILabel(
         text: "Добавить туриста",
@@ -18,28 +24,32 @@ final class AddTouristView: UIView {
         let button = UIButton()
         //button.setImage(UIImage(systemName: "plus.square"), for: .normal)
         button.setBackgroundImage(UIImage(systemName: "plus.square"), for: .normal)
-        //button.setImage(UIImage(systemName: "chevron.down"), for: .highlighted)
-        //button.setImage(UIImage(systemName: "chevron.down"), for: .reserved)
         button.backgroundColor = #colorLiteral(red: 0, green: 0.5422510505, blue: 1, alpha: 0.1)
         button.layer.cornerRadius = 6
         button.translatesAutoresizingMaskIntoConstraints = false
-        //button.addTarget(self, action: #selector(toggleInformationView), for: .touchUpInside)
+        button.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         return button
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .white
-        layer.cornerRadius = 10
-        
+        prepareView()
         setupViews()
         setupLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc private func addButtonTapped() {
+        addTouristViewDelegate?.addNewExpanded()
+    }
+    
+    private func prepareView() {
+        translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .white
+        layer.cornerRadius = 10
     }
         
     private func setupViews() {

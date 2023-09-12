@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class NameLabelsView: UIView {
+final class NameView: UIView {
     
     private let nameLabel = UILabel(
         text: "Steigenberber",
@@ -23,7 +23,7 @@ final class NameLabelsView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        translatesAutoresizingMaskIntoConstraints = false
+        prepareView()
         setupComponents()
     }
     
@@ -36,6 +36,15 @@ final class NameLabelsView: UIView {
         adressLabel.text = model.adress
     }
     
+    func configure(with model: InfoHostel) {
+        nameLabel.text = model.hotelName
+        adressLabel.text = model.hotelAdress
+    }
+    
+    private func prepareView() {
+        translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     private func setupComponents() {
         addSubviews(nameLabel, adressLabel)
         setupLayout()
@@ -46,7 +55,7 @@ final class NameLabelsView: UIView {
     }
 }
 
-extension NameLabelsView {
+extension NameView {
     private func setupLayout() {
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: topAnchor),

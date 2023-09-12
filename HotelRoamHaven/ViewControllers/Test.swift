@@ -9,26 +9,36 @@ import UIKit
 
 final class RoomViewController: UIViewController {
     
-    //private var heightConstaint: NSLayoutConstraint!
-    private var isCellExpanded = false
+    private var tourists: [Tourist] = []
+    //private var tourist = Tourist()
     
-    private var isInformationViewHidden = false
-    
-    private let informationBayerView = InformationBayerView()
-    
-    private let infornationTouristView = InformationTouristView()
-    
-    private let addTouristView = AddTouristView()
+    private var expandableNames = [
+        ExpandableNames(isExpanded: true),
+        ExpandableNames()
+    ]
     
     private let tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .plain)
-        tableView.register(TouristTableViewCell.self, forCellReuseIdentifier: TouristTableViewCell.identifier)
-        tableView.backgroundColor = .gray
+        let tableView = UITableView()
+        tableView.register(
+            TitleTextTableViewCell.self,
+            forCellReuseIdentifier: TitleTextTableViewCell.identifier
+        )
+        tableView.register(
+            TextTableViewCell.self,
+            forCellReuseIdentifier: TextTableViewCell.identifier
+        )
         tableView.separatorStyle = .none
         tableView.backgroundColor = .grayBackgroundColor()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
+    
+    private let addButtonView = AddTouristView()
+    
+    private lazy var selectedButton = UIButton(
+        title: "К выбору номера",
+        font: UIFont.mediumSFPro16()
+    )
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,111 +46,196 @@ final class RoomViewController: UIViewController {
         view.backgroundColor = .grayBackgroundColor()
         setupViews()
         setupLayout()
-        infornationTouristView.delegate = self
         tableView.dataSource = self
-        tableView.rowHeight = 66
-        //tableView.rowHeight = UITableView.automaticDimension
-        //tableView.estimatedRowHeight = 66 // Определите оценочную высоту
-        
-        // Выберите начальную высоту.
-        //heightConstaint.constant = isInformationViewHidden ? 58 : 430
+        tableView.delegate = self
+        addButtonView.addTouristViewDelegate = self
+        tableView.rowHeight = 70
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 8
+        }
+        selectedButton.addTarget(self, action: #selector(selectedButtonTapped), for: .touchUpInside)
+        setupTourists()
     }
     
+    private func setupTourists() {
+        expandableNames.indices.forEach { _ in
+            let tourist = Tourist()
+            tourists.append(tourist)
+        }
+    }
     
-    func configure(with title: String) {
-        let truncatedString = String(title.prefix(20))
-        self.title = truncatedString
+    private func getEditTourist() {
+        expandableNames.indices.forEach { index in
+            guard let firstNameCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: index)) as? TitleTextTableViewCell,
+                  let lastNameCell = self.tableView.cellForRow(at: IndexPath(row: 1, section: index)) as? TitleTextTableViewCell,
+                  let dateBirthdayCell = self.tableView.cellForRow(at: IndexPath(row: 2, section: index)) as? TextTableViewCell,
+                  let nationalityCell = self.tableView.cellForRow(at: IndexPath(row: 3, section: index)) as? TextTableViewCell,
+                  let passportIDCell = self.tableView.cellForRow(at: IndexPath(row: 4, section: index)) as? TextTableViewCell,
+                  let validityCell = self.tableView.cellForRow(at: IndexPath(row: 5, section: index))  as? TextTableViewCell else {
+                return
+            }
+            
+            tourists[index].firstName = firstNameCell.getCellValue()
+            tourists[index].lastName = lastNameCell.getCellValue()
+            tourists[index].dateBirthday = dateBirthdayCell.getValueCell()
+            tourists[index].nationality = nationalityCell.getValueCell()
+            tourists[index].passportID = passportIDCell.getValueCell()
+            tourists[index].validity = validityCell.getValueCell()
+        }
+    }
+//    
+    func getTourists() -> [Tourist] {
+        getEditTourist()
+        return tourists
     }
     
     private func setupViews() {
-//        view.addSubview(informationBayerView)
-//        view.addSubview(infornationTouristView)
-//        view.addSubview(addTouristView)
         view.addSubview(tableView)
+        view.addSubview(addButtonView)
+        view.addSubview(selectedButton)
     }
-}
-
-extension RoomViewController: InformationTouristViewDelegate {
-    func checkAnimation() {
-        print("dasda")
-        isInformationViewHidden.toggle()
-        infornationTouristView.isChecking(isInformationViewHidden)
-//        UIView.animate(withDuration: 0.3) {
-//            self.heightConstaint.constant = self.isInformationViewHidden ? 58 : 430 // Выберите
-//            self.view.layoutIfNeeded() // Обновите макет для выполнения анимации.
+    
+    private func authFields(tourist: Tourist) -> Bool {
+        if tourist.firstName == ""
+            || tourist.lastName == ""
+            || tourist.dateBirthday == ""
+            || tourist.nationality == ""
+            || tourist.passportID == ""
+            || tourist.validity == "" {
+            return false
+        }
+        return true
+    }
+    
+    @objc private func selectedButtonTapped() {
+        let tourists = getTourists()
+        //let tourist = tourists[0]
+        
+        print(tourists[0])
+        print(tourists[1])
+//        if authFields(tourist: tourist) {
+//            print("good")
+//        } else {
+//            print("not good")
 //        }
     }
 }
 
 extension RoomViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        expandableNames.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        if !expandableNames[section].isExpanded {
+            return 0
+        }
+        
+        return expandableNames[section].names.count
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let isExpanded = expandableNames[section].isExpanded
+        let testView = TestView()
+        testView.setupButton(section: section, isExpanded: isExpanded)
+        testView.testViewDelegate = self
+        return testView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TouristTableViewCell.identifier, for: indexPath)
-        guard let cell = cell as? TouristTableViewCell else {
-            return UITableViewCell()
-        }
+        let name = expandableNames[indexPath.section].names[indexPath.row].rawValue
         
-        return cell
+        switch indexPath.row {
+        case 0...1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: TitleTextTableViewCell.identifier, for: indexPath)
+            guard let cell = cell as? TitleTextTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configure(with: name)
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: TextTableViewCell.identifier, for: indexPath)
+            guard let cell = cell as? TextTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configure(with: name)
+            return cell
+        }
     }
 }
 
 extension RoomViewController: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        //indexPath.row == 0 ? UITableView.automaticDimension : 430
-//        //return isCellExpanded ? 58 : 430
-//    }
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        isCellExpanded = !isCellExpanded
-//        tableView.beginUpdates()
-//        tableView.endUpdates()
-//    }
-    
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        if indexPath.row == 0 { // Проверка на вашу особую логику, если есть
-//            UIView.animate(withDuration: 0.3, animations: {
-//                cell.contentView.layoutIfNeeded()
-//            })
-//        }
-//    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        60
+    }
+}
 
+extension RoomViewController: TestViewDelegate {
+    func didTapped(tag: Int) {
+        let section = tag
+        var indexPathsToReload: [IndexPath] = []
+        
+        expandableNames[section].names.indices.forEach { row in
+            print(section, row)
+            let indexPath = IndexPath(row: row, section: section)
+            indexPathsToReload.append(indexPath)
+        }
+        
+        print(indexPathsToReload)
+        let isExpanded = !expandableNames[section].isExpanded
+        expandableNames[section].isExpanded = isExpanded
+        
+        if isExpanded {
+            tableView.insertRows(at: indexPathsToReload, with: .fade)
+        } else {
+            tableView.deleteRows(at: indexPathsToReload, with: .fade)
+        }
+    }
+}
+
+extension RoomViewController: AddTouristViewDelegate {
+    func addNewExpanded() {
+        let expandableName = ExpandableNames()
+        expandableNames.append(expandableName)
+        let newTourist = Tourist()
+        print(newTourist)
+        tourists.append(newTourist)
+        let newSection = expandableNames.count - 1
+        let newIndexPath = IndexSet(integer: newSection)
+        print(newIndexPath)
+        tableView.insertSections(newIndexPath, with: .automatic)
+        
+    }
 }
 
 extension RoomViewController {
     private func setupLayout() {
-//        NSLayoutConstraint.activate([
-//            informationBayerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-//            informationBayerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            informationBayerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            informationBayerView.heightAnchor.constraint(equalToConstant: 232)
-//        ])
+        NSLayoutConstraint.activate([
+            selectedButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -34),
+            selectedButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            selectedButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            selectedButton.heightAnchor.constraint(equalToConstant: 48)
+        ])
         
-//        heightConstaint = NSLayoutConstraint(item: infornationTouristView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 430)
-//        infornationTouristView.addConstraint(heightConstaint)
-//
-//        NSLayoutConstraint.activate([
-//            infornationTouristView.topAnchor.constraint(equalTo: informationBayerView.bottomAnchor, constant: 8),
-//            infornationTouristView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            infornationTouristView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            //infornationTouristView.heightAnchor.constraint(equalToConstant: 430)
-//        ])
-        
-//        NSLayoutConstraint.activate([
-//            addTouristView.topAnchor.constraint(equalTo: infornationTouristView.bottomAnchor, constant: 8),
-//            addTouristView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            addTouristView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            addTouristView.heightAnchor.constraint(equalToConstant: 58),
-//        ])
+        NSLayoutConstraint.activate([
+            addButtonView.bottomAnchor.constraint(equalTo: selectedButton.topAnchor, constant: -8),
+            //tableView.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 8),
+            addButtonView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            addButtonView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            addButtonView.heightAnchor.constraint(equalToConstant: 58)
+        ])
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: addButtonView.topAnchor, constant: -8),
+            //tableView.heightAnchor.constraint(greaterThanOrEqualToConstant: 430),
         ])
+        
+        
+        
+        
     }
 }
-

@@ -14,7 +14,7 @@ final class ImageCollectionView: UICollectionView {
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: collectionFlowLayout)
         
-        setupConfigure()
+        prepareView()
         setupCollectionLayout()
     }
     
@@ -22,7 +22,7 @@ final class ImageCollectionView: UICollectionView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupConfigure() {
+    private func prepareView() {
         translatesAutoresizingMaskIntoConstraints = false
         showsHorizontalScrollIndicator = false
         layer.cornerRadius = 15
