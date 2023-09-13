@@ -11,6 +11,12 @@ final class TouristViewController: UIViewController {
     
     private let networkManager = NetworkManager.shared
     
+    private var expandableNames = [
+        ExpandableName(isExpanded: true),
+        ExpandableName()
+    ]
+
+    
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .grayBackgroundColor()
@@ -54,6 +60,8 @@ final class TouristViewController: UIViewController {
         prepareView()
         setupViews()
         setupLayout()
+        informationTouristView.configure(with: expandableNames)
+        addButtonView.addTouristViewDelegate = self
     }
     
     private func prepareView() {
@@ -91,6 +99,18 @@ final class TouristViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
+    }
+}
+
+extension TouristViewController: AddTouristViewDelegate {
+    func addNewExpanded() {
+        let expandableName = ExpandableName()
+        expandableNames.append(expandableName)
+        informationTouristView.addNewExpandbleName(with: expandableName)
+        let newSection = expandableNames.count - 1
+        let newIndexPath = IndexSet(integer: newSection)
+        print(newIndexPath)
+        informationTouristView.insertSections(newIndexPath, with: .automatic)
     }
 }
 

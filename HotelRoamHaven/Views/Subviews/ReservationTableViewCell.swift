@@ -29,9 +29,16 @@ final class ReservationTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with option: String, text: String) {
-        descriptionLabel.text = option
-        nameLabel.text = text
+    func configure(with option: String, text: String, isRight: Bool) {
+        if isRight {
+            descriptionLabel.text = option
+            nameLabel.text = text + " ₽"
+            nameLabel.textAlignment = .right
+        } else {
+            descriptionLabel.text = option
+            nameLabel.text = text
+        }
+        
     }
     
     private func setupViews() {

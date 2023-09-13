@@ -10,7 +10,7 @@ import UIKit
 final class PriceView: UIView {
     
     private let priceLabel = UILabel(
-        text: "от 134 436 Р",
+        text: "от 134 673 ₽",
         font: .semiboldSFPro()
     )
     
@@ -31,12 +31,12 @@ final class PriceView: UIView {
     }
     
     func configure(with model: Hostel) {
-        priceLabel.text = " oт \(model.minimalPrice) Р"
+        priceLabel.text = " oт \(model.minimalPrice) ₽"
         additionalLabel.text = model.priceForIt
     }
     
     func configure(with room: Room) {
-        priceLabel.text = " oт \(room.price) Р"
+        priceLabel.text = " oт \(room.price) ₽"
         additionalLabel.text = room.pricePer
     }
     

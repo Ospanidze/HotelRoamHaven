@@ -10,9 +10,7 @@ import UIKit
 final class RoomListViewController: UIViewController {
     
     private let networkManager = NetworkManager.shared
-    
-    private var hostel: Hostel?
-    
+
     private var rooms: [Room] = []
     
     private let tableView: UITableView = {
@@ -37,9 +35,8 @@ final class RoomListViewController: UIViewController {
     }
     
     
-    func configure(with hostel: Hostel) {
-        self.hostel = hostel
-        let title = hostel.name
+    func configure(with hostel: Hostel?) {
+        guard let title = hostel?.name else { return }
         let truncatedString = String(title.prefix(20))
         self.title = truncatedString
     }
@@ -76,7 +73,7 @@ final class RoomListViewController: UIViewController {
 
 extension RoomListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        rooms.count
+        return rooms.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

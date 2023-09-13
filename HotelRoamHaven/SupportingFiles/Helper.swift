@@ -33,7 +33,7 @@ enum Price: String, CaseIterable {
     case pay = "К оплате"
 }
 
-struct ExpandableNames {
+struct ExpandableName {
     var isExpanded = false
     let names = NameField.allCases
 }

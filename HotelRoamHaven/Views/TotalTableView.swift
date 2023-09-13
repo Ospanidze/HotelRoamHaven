@@ -64,7 +64,7 @@ extension TotalTableView: UITableViewDataSource {
         let name = names[indexPath.row].rawValue
         let value = values[indexPath.row]
         
-        cell.configure(with: name, text: value)
+        cell.configure(with: name, text: value, isRight: true)
         return cell
     }
 }

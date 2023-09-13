@@ -23,8 +23,8 @@ final class ReservationTableView: UITableView {
     }
     
     func configure(with model: InfoHostel) {
-        print(model)
-        let c = [
+       
+        values = [
             model.departure,
             model.arrivalCountry,
             "\(model.tourDateStart) - \(model.tourDateStop)",
@@ -33,10 +33,8 @@ final class ReservationTableView: UITableView {
             model.room,
             model.nutrition
         ]
-        print(c)
-        values = c
 
-        reloadSections(IndexSet(integer: 0), with: .automatic)
+        reloadData()
     }
     
     private func prepareView() {
@@ -57,7 +55,7 @@ final class ReservationTableView: UITableView {
 
 extension ReservationTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        names.count
+        values.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -67,9 +65,9 @@ extension ReservationTableView: UITableViewDataSource {
             return UITableViewCell()
         }
         let name = names[indexPath.row].rawValue
+        let value = values[indexPath.row]
         
-        
-        cell.configure(with: name, text: "")
+        cell.configure(with: name, text: value, isRight: false )
         return cell
     }
 }

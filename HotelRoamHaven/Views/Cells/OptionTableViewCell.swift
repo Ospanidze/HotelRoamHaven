@@ -43,10 +43,11 @@ final class OptionTableViewCell: UITableViewCell {
     
     func configure(with option: Option) {
         titleLabel.text = option.title
-        iconImageView.image = UIImage(systemName: option.imageString)?.withRenderingMode(.alwaysOriginal) ?? UIImage(named: option.imageString)
+        iconImageView.image = UIImage(named: option.imageString)
     }
     
     private func prepareView() {
+        selectionStyle = .none
         backgroundColor = .grayBackgroundColor()
     }
     

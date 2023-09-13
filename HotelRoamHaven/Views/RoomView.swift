@@ -34,7 +34,7 @@ final class RoomView: UIView {
     }()
     
     private let titleLabel = UILabel(
-        text: "dasdaasda",
+        text: "Стандартный с видом на бассейн или сад",
         font: .mediumSFPro22(),
         numberOfLines: 0
     )
@@ -174,6 +174,7 @@ extension RoomView {
             peculiaritiesCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
             peculiaritiesCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             peculiaritiesCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            //peculiaritiesCollectionView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.70),
             peculiaritiesCollectionView.heightAnchor.constraint(greaterThanOrEqualToConstant: 29),
         ])
 

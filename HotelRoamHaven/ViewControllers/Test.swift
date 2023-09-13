@@ -13,8 +13,8 @@ final class RoomViewController: UIViewController {
     //private var tourist = Tourist()
     
     private var expandableNames = [
-        ExpandableNames(isExpanded: true),
-        ExpandableNames()
+        ExpandableName(isExpanded: true),
+        ExpandableName()
     ]
     
     private let tableView: UITableView = {
@@ -137,7 +137,7 @@ extension RoomViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let isExpanded = expandableNames[section].isExpanded
-        let testView = TestView()
+        let testView = HeaderView()
         testView.setupButton(section: section, isExpanded: isExpanded)
         testView.testViewDelegate = self
         return testView
@@ -196,7 +196,7 @@ extension RoomViewController: TestViewDelegate {
 
 extension RoomViewController: AddTouristViewDelegate {
     func addNewExpanded() {
-        let expandableName = ExpandableNames()
+        let expandableName = ExpandableName()
         expandableNames.append(expandableName)
         let newTourist = Tourist()
         print(newTourist)

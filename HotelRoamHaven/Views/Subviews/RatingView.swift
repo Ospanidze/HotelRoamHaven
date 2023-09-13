@@ -20,7 +20,7 @@ final class RatingView: UIView {
     }()
     
     private let numberRatingLabel = UILabel(
-        text: "5 Wonderful",
+        text: "5 Превосходно",
         font: UIFont.mediumSFPro16(),
         textColor: .orangeTextColor()
     )

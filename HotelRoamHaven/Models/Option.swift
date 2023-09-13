@@ -14,8 +14,8 @@ struct Option {
     static func getOptions() -> [Option] {
         [
             Option(title: "Удобство", imageString: "happy"),
-            Option(title: "Что включено", imageString: "checkmark.square"),
-            Option(title: "Что не включено", imageString: "xmark.square")
+            Option(title: "Что включено", imageString: "check"),
+            Option(title: "Что не включено", imageString: "close")
         ]
     }
 }

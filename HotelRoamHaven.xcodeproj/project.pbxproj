@@ -46,7 +46,7 @@
 		EFC8A50B2AAF5945009A56D9 /* ReservationTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC8A50A2AAF5945009A56D9 /* ReservationTableView.swift */; };
 		EFC8A50D2AAF5B07009A56D9 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC8A50C2AAF5B07009A56D9 /* Helper.swift */; };
 		EFC8A5112AAFA345009A56D9 /* TextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC8A5102AAFA345009A56D9 /* TextTableViewCell.swift */; };
-		EFC8A5132AAFAD3F009A56D9 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC8A5122AAFAD3F009A56D9 /* TestView.swift */; };
+		EFC8A5132AAFAD3F009A56D9 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC8A5122AAFAD3F009A56D9 /* HeaderView.swift */; };
 		EFC8A5152AAFE369009A56D9 /* TestTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC8A5142AAFE369009A56D9 /* TestTextField.swift */; };
 		EFC8A5172AB03913009A56D9 /* Int + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC8A5162AB03913009A56D9 /* Int + ext.swift */; };
 		EFC8A5192AB111B2009A56D9 /* TotalTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC8A5182AB111B2009A56D9 /* TotalTableView.swift */; };
@@ -100,7 +100,7 @@
 		EFC8A50A2AAF5945009A56D9 /* ReservationTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationTableView.swift; sourceTree = "<group>"; };
 		EFC8A50C2AAF5B07009A56D9 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		EFC8A5102AAFA345009A56D9 /* TextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTableViewCell.swift; sourceTree = "<group>"; };
-		EFC8A5122AAFAD3F009A56D9 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		EFC8A5122AAFAD3F009A56D9 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		EFC8A5142AAFE369009A56D9 /* TestTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTextField.swift; sourceTree = "<group>"; };
 		EFC8A5162AB03913009A56D9 /* Int + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int + ext.swift"; sourceTree = "<group>"; };
 		EFC8A5182AB111B2009A56D9 /* TotalTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalTableView.swift; sourceTree = "<group>"; };
@@ -251,7 +251,6 @@
 				EF37DDF52AABB6C1007BACF3 /* OptionTableViewCell.swift */,
 				EFC5B7872AADFECC008A8403 /* PeculiaritiesCollectionViewCell.swift */,
 				EFC5B78D2AAE0B56008A8403 /* PeculiarTableViewCell.swift */,
-				EFC8A5082AAF53D2009A56D9 /* ReservationTableViewCell.swift */,
 				EFC5B77F2AACF59A008A8403 /* TitleTextTableViewCell.swift */,
 				EFC8A5102AAFA345009A56D9 /* TextTableViewCell.swift */,
 			);
@@ -270,7 +269,8 @@
 				EFC5B7852AADFD54008A8403 /* PeculiaritiesCollectionView.swift */,
 				EFC5B7892AAE0405008A8403 /* AboutRoomView.swift */,
 				EFC8A5022AAE44D1009A56D9 /* ImageCollectionView.swift */,
-				EFC8A5122AAFAD3F009A56D9 /* TestView.swift */,
+				EFC8A5082AAF53D2009A56D9 /* ReservationTableViewCell.swift */,
+				EFC8A5122AAFAD3F009A56D9 /* HeaderView.swift */,
 				EFC8A5142AAFE369009A56D9 /* TestTextField.swift */,
 			);
 			path = Subviews;
@@ -349,7 +349,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFC8A5132AAFAD3F009A56D9 /* TestView.swift in Sources */,
+				EFC8A5132AAFAD3F009A56D9 /* HeaderView.swift in Sources */,
 				EFE757862AAA3A130055A7C1 /* NameView.swift in Sources */,
 				EFC5B7782AAC91A6008A8403 /* InformationBayerView.swift in Sources */,
 				EFA882062AA9B1C200340658 /* Hostel.swift in Sources */,

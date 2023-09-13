@@ -34,6 +34,11 @@ final class PeculiaritiesCollectionView: UICollectionView {
         reloadData()
     }
     
+    func configure(with model: Hostel) {
+        peculiarties = model.aboutTheHotel.peculiarities
+        reloadData()
+    }
+    
     private func prepareView() {
         translatesAutoresizingMaskIntoConstraints = false
         register(PeculiaritiesCollectionViewCell.self, forCellWithReuseIdentifier: identifier)
@@ -109,9 +114,9 @@ extension PeculiaritiesCollectionView: UICollectionViewDelegateFlowLayout {
 //        let collectionViewWidth = collectionView.bounds.width
 //        
 //        let cellWidth = collectionViewWidth / 2
-        let cellHeight = collectionView.bounds.height
+        //let cellHeight = collectionView.bounds.height
         let cellWidth = calculateWidthForCell(at: indexPath)
-        return CGSize(width: cellWidth, height: cellHeight)
+        return CGSize(width: cellWidth, height: 29)
         
         //return CGSize(width: cellWidth, height: collectionView.bounds.height)
     }

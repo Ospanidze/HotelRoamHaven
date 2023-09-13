@@ -48,7 +48,6 @@ final class MainViewController: UIViewController {
     }
     
     @objc private func selectedButtonTapped() {
-        guard let hostel = hostel else { return }
         let vc = RoomListViewController()
         vc.configure(with: hostel)
         navigationController?.pushViewController(vc, animated: true)

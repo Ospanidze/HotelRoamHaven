@@ -9,10 +9,8 @@ import UIKit
 
 final class InformationTouristView: UITableView {
     
-    private var expandableNames = [
-        ExpandableNames(isExpanded: true),
-        ExpandableNames()
-    ]
+    private var expandableNames: [ExpandableName] = []
+    
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
         prepareView()
@@ -21,6 +19,15 @@ final class InformationTouristView: UITableView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(with expandableNames: [ExpandableName]) {
+        self.expandableNames = expandableNames
+        reloadData()
+    }
+    
+    func addNewExpandbleName(with element: ExpandableName) {
+        expandableNames.append(element)
     }
     
     private func prepareView() {
@@ -61,7 +68,7 @@ extension InformationTouristView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let isExpanded = expandableNames[section].isExpanded
-        let testView = TestView()
+        let testView = HeaderView()
         testView.setupButton(section: section, isExpanded: isExpanded)
         testView.testViewDelegate = self
         return testView

@@ -12,47 +12,8 @@ final class DescriptionView: UIView {
     
     private let nameLabel = UILabel(text: "Об Отеле", font: UIFont.mediumSFPro22())
     
-    private var mainStackView = UIStackView()
-    
-    private let firstTextLabel = UILabel(
-        text: "String",
-        font: .mediumSFPro16(),
-        textColor: .grayTextColor(),
-        textAlingment: .center,
-        backColor: .grayBackgroundColor(),
-        numberOfLines: 0
-    )
-    
-    private let secondTextLabel = UILabel(
-        text: "String",
-        font: .mediumSFPro16(),
-        textColor: .grayTextColor(),
-        textAlingment: .center,
-        backColor: .grayBackgroundColor(),
-        numberOfLines: 0
-        
-    )
-    
-    private let thridTextLabel = UILabel(
-        text: "String",
-        font: .mediumSFPro16(),
-        textColor: .grayTextColor(),
-        textAlingment: .center,
-        backColor: .grayBackgroundColor(),
-        numberOfLines: 0
-    )
-    
-    private let fourthTextLabel = UILabel(
-        text: "String",
-        font: .mediumSFPro16(),
-        textColor: .grayTextColor(),
-        textAlingment: .center,
-        backColor: .grayBackgroundColor(),
-        numberOfLines: 0
-    )
-    
     private let descriptionLabel = UILabel(
-        text: "dasdasdfsfsfssfsdfafadfjdhfkjadfhakdfjhaksdjfhjsfhakfasdjf",
+        text: "Отель VIP-класса с собственными гольф полями. Высокий уровнь сервиса. Рекомендуем для респектабельного отдыха. Отель принимает гостей от 18 лет!",
         font: UIFont.regularSFPro16(),
         numberOfLines: 0
     )
@@ -70,6 +31,7 @@ final class DescriptionView: UIView {
         return tableView
     }()
     
+    private let peculiaritiesCollectionView = PeculiaritiesCollectionView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -85,20 +47,14 @@ final class DescriptionView: UIView {
     
     func configure(with model: Hostel) {
         descriptionLabel.text = model.aboutTheHotel.description
-        firstTextLabel.text = model.aboutTheHotel.peculiarities[0]
-        secondTextLabel.text = model.aboutTheHotel.peculiarities[1]
-        thridTextLabel.text = model.aboutTheHotel.peculiarities[2]
-        fourthTextLabel.text = model.aboutTheHotel.peculiarities[3]
+        peculiaritiesCollectionView.configure(with: model)
     }
     
     private func setupComponents() {
         //descriptionTableView.rowHeight = 44
         addSubviews(
             nameLabel,
-            firstTextLabel,
-            secondTextLabel,
-            thridTextLabel,
-            fourthTextLabel,
+            peculiaritiesCollectionView,
             descriptionLabel,
             descriptionTableView
             )
@@ -140,35 +96,14 @@ extension DescriptionView {
         ])
         
         NSLayoutConstraint.activate([
-            firstTextLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 15),
-            firstTextLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            firstTextLabel.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.5)
-            //firstTextLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 26)
+            peculiaritiesCollectionView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 16),
+            peculiaritiesCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            peculiaritiesCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -64),
+            peculiaritiesCollectionView.heightAnchor.constraint(equalToConstant: 60),
         ])
         
         NSLayoutConstraint.activate([
-            secondTextLabel.topAnchor.constraint(equalTo: firstTextLabel.topAnchor),
-            //firstTextLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            //firstTextLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.6),
-            secondTextLabel.leadingAnchor.constraint(equalTo: firstTextLabel.trailingAnchor, constant: 5),
-            secondTextLabel.heightAnchor.constraint(equalToConstant: 26)
-        ])
-        
-        NSLayoutConstraint.activate([
-            thridTextLabel.topAnchor.constraint(equalTo: firstTextLabel.bottomAnchor, constant: 10),
-            thridTextLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            thridTextLabel.heightAnchor.constraint(equalToConstant: 26)
-        ])
-        
-        NSLayoutConstraint.activate([
-            fourthTextLabel.topAnchor.constraint(equalTo: firstTextLabel.bottomAnchor, constant: 10),
-            fourthTextLabel.leadingAnchor.constraint(equalTo: thridTextLabel.trailingAnchor, constant: 16),
-            fourthTextLabel.heightAnchor.constraint(equalToConstant: 26)
-        ])
-        
-        
-        NSLayoutConstraint.activate([
-            descriptionLabel.topAnchor.constraint(equalTo: fourthTextLabel.bottomAnchor, constant: 15),
+            descriptionLabel.topAnchor.constraint(equalTo: peculiaritiesCollectionView.bottomAnchor, constant: 15),
             descriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             //descriptionLabel.heightAnchor.constraint(equalToConstant: 76),
@@ -178,9 +113,9 @@ extension DescriptionView {
             descriptionTableView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 20),
             descriptionTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             descriptionTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            //descriptionTableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            descriptionTableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
             //descriptionTableView.heightAnchor.constraint(equalToConstant: 184)
-            descriptionTableView.heightAnchor.constraint(greaterThanOrEqualTo: heightAnchor, multiplier: 0.4)
+//            descriptionTableView.heightAnchor.constraint(greaterThanOrEqualTo: heightAnchor, multiplier: 0.4)
         ])
     }
 }

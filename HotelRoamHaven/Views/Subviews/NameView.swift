@@ -10,13 +10,13 @@ import UIKit
 final class NameView: UIView {
     
     private let nameLabel = UILabel(
-        text: "Steigenberber",
+        text: "Steigenberber Makadi",
         font: .mediumSFPro22(),
         numberOfLines: 0
     )
     
     private let adressLabel = UILabel(
-        text: "Madinat Makadi, Safaga",
+        text: "Madinat Makadi, Safaga Road, Makadi Bay, Египет",
         font: .mediumSFPro14(),
         textColor: .blueColor()
     )

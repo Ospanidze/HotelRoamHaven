@@ -11,7 +11,7 @@ protocol TestViewDelegate: AnyObject {
     func didTapped(tag: Int)
 }
 
-final class TestView: UIView {
+final class HeaderView: UIView {
     
     weak var testViewDelegate: TestViewDelegate?
     
