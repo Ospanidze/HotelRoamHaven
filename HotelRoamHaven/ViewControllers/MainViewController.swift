@@ -9,6 +9,7 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
+    //MARK: Private Properties
     private let networkManager = NetworkManager.shared
     
     private var hostel: Hostel?
@@ -39,14 +40,9 @@ final class MainViewController: UIViewController {
         setupComponents()
         setupNavigationBar()
         fetchHostel()
-        
-        selectedButton.addTarget(
-            self,
-            action: #selector(selectedButtonTapped),
-            for: .touchUpInside
-        )
     }
     
+    //MARK: Private Methods
     @objc private func selectedButtonTapped() {
         let vc = RoomListViewController()
         vc.configure(with: hostel)
@@ -60,6 +56,11 @@ final class MainViewController: UIViewController {
         mainStackView.addArrangedSubview(descriptionView)
         view.addSubview(selectedButton)
         setupLayout()
+        selectedButton.addTarget(
+            self,
+            action: #selector(selectedButtonTapped),
+            for: .touchUpInside
+        )
     }
     
     private func setupHostelModel(_ hostel: Hostel) {
@@ -82,6 +83,7 @@ final class MainViewController: UIViewController {
     }
 }
 
+//MARK: SetupNavigationBar
 extension MainViewController {
     private func setupNavigationBar() {
         title = "Отель"
@@ -100,6 +102,7 @@ extension MainViewController {
     }
 }
 
+//MARK: SetupLayout
 extension MainViewController {
     private func setupLayout() {
         NSLayoutConstraint.activate([

@@ -9,6 +9,7 @@ import UIKit
 
 final class PaidViewController: UIViewController {
     
+    //MARK: Private Properties
     private let backdropView: UIView = {
         let view = UIView()
         view.backgroundColor = .grayBackgroundColor()
@@ -52,7 +53,7 @@ final class PaidViewController: UIViewController {
     
     private let superButton = UIButton(title: "Супер!", font: .mediumSFPro16())
     
-    
+    //MARK: Override Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
@@ -62,6 +63,7 @@ final class PaidViewController: UIViewController {
         backdropView.layer.cornerRadius = backdropView.frame.height / 2
     }
     
+    //MARK: Private Methods
     private func prepareView() {
         title = "Заказ оплачен"
         view.backgroundColor = .white
@@ -86,6 +88,7 @@ final class PaidViewController: UIViewController {
     }
 }
 
+//MARK: SetupLayout
 extension PaidViewController {
     private func setupLayout() {
         NSLayoutConstraint.activate([

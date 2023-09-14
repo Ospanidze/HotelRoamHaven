@@ -9,6 +9,7 @@ import UIKit
 
 final class RoomListViewController: UIViewController {
     
+    //MARK: Private Properties
     private let networkManager = NetworkManager.shared
 
     private var rooms: [Room] = []
@@ -32,13 +33,15 @@ final class RoomListViewController: UIViewController {
         fetchMotel()
     }
     
-    
+    //MARK: Public/Internal Methods
     func configure(with hostel: Hostel?) {
         guard let title = hostel?.name else { return }
         let truncatedString = String(title.prefix(20))
         self.title = truncatedString
+        //self.title  = hostel?.name
     }
     
+    //MARK: Private Methods
     private func setupDelegates() {
         tableView.dataSource = self
         //tableView.delegate = self
@@ -47,6 +50,12 @@ final class RoomListViewController: UIViewController {
     private func setupViews() {
         view.backgroundColor = .white
         view.addSubview(tableView)
+        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.leftBarButtonItem = backButton
+    }
+    
+    @objc private func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
     }
     
     private func fetchMotel() {
@@ -68,8 +77,7 @@ final class RoomListViewController: UIViewController {
     }
 }
 
-
-
+//MARK: - UITableViewDataSource
 extension RoomListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rooms.count
@@ -88,6 +96,7 @@ extension RoomListViewController: UITableViewDataSource {
     }
 }
 
+//MARK: - PeculiarTableViewCellDelegate
 extension RoomListViewController: PeculiarTableViewCellDelegate {
     func cellButtonTapped() {
         let vc = TouristViewController()
@@ -95,6 +104,7 @@ extension RoomListViewController: PeculiarTableViewCellDelegate {
     }
 }
 
+//MARK: SetupLayout
 extension RoomListViewController {
     private func setupLayout() {
         NSLayoutConstraint.activate([

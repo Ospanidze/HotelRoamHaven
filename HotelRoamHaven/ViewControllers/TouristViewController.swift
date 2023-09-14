@@ -9,10 +9,11 @@ import UIKit
 
 final class TouristViewController: UIViewController {
     
-//    private lazy var height: NSLayoutConstraint = {
-//        let height = NSLayoutConstraint(item: informationTouristView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 500)
-//        return height
-//    }()
+    //MARK: Private Properties
+    private lazy var height: NSLayoutConstraint = {
+        let height = NSLayoutConstraint(item: informationTouristView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 500)
+        return height
+    }()
     
     private let networkManager = NetworkManager.shared
     
@@ -62,12 +63,27 @@ final class TouristViewController: UIViewController {
         fetchInfoHostel()
     }
     
+    //MARK: Private Methods
     private func setupComponents() {
         prepareView()
         setupViews()
         setupLayout()
         informationTouristView.configure(with: expandableNames)
         addButtonView.addTouristViewDelegate = self
+        //height.constant = informationTouristView.contentSize.height
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapGesture)
+
+        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.leftBarButtonItem = backButton
+    }
+    
+    @objc private func hideKeyboard() {
+        view.endEditing(true) // Закрыть клавиатуру
+    }
+    
+    @objc private func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
     }
     
     private func prepareView() {
@@ -79,6 +95,7 @@ final class TouristViewController: UIViewController {
     
     @objc private func payButtonTapped() {
         let edtingTourist = informationTouristView.getTourist()
+        print(edtingTourist)
         if authFields(tourist: edtingTourist) {
             let vc = PaidViewController()
             navigationController?.pushViewController(vc, animated: true)
@@ -135,6 +152,7 @@ final class TouristViewController: UIViewController {
     }
 }
 
+//MARK: - AddTouristViewDelegate
 extension TouristViewController: AddTouristViewDelegate {
     func addNewExpanded() {
         let expandableName = ExpandableName()
@@ -147,10 +165,11 @@ extension TouristViewController: AddTouristViewDelegate {
     }
 }
 
+//MARK: SetupLayout
 extension TouristViewController {
     private func setupLayout() {
         
-        //informationTouristView.addConstraint(height)
+        informationTouristView.addConstraint(height)
         
         NSLayoutConstraint.activate([
             payButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -34),
@@ -169,7 +188,7 @@ extension TouristViewController {
         reservationView.heightAnchor.constraint(equalToConstant: 130).isActive = true
         reservationTableView.heightAnchor.constraint(equalToConstant: 280).isActive = true
         informationBayerView.heightAnchor.constraint(equalToConstant: 232).isActive = true
-        informationTouristView.heightAnchor.constraint(equalToConstant: 500).isActive = true
+        //informationTouristView.heightAnchor.constraint(equalToConstant: 500).isActive = true
         addButtonView.heightAnchor.constraint(equalToConstant: 58).isActive = true
         totalView.heightAnchor.constraint(equalToConstant: 156).isActive = true
         

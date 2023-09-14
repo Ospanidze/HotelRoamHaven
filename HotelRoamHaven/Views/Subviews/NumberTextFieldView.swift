@@ -12,10 +12,10 @@ final class NumberTextFieldView: UIView {
     private var isTyping = false {
         didSet {
             if self.isTyping {
-                numberTextField.isHidden = true
+                numberTextField.alpha = 0.05
                 numberLabel.isHidden = false
             } else {
-                numberTextField.isHidden = false
+                numberTextField.alpha = 1
                 numberLabel.isHidden = true
             }
         }
@@ -68,8 +68,8 @@ final class NumberTextFieldView: UIView {
     }
     
     private func setupViews() {
-        addSubview(numberTextField)
         addSubview(titleNumberLabel)
+        addSubview(numberTextField)
         addSubview(numberLabel)
     }
     
