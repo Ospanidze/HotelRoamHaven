@@ -1,13 +1,13 @@
 //
-//  TitleTextFieldView.swift
+//  EmailTextFieldView.swift
 //  HotelRoamHaven
 //
-//  Created by Айдар Оспанов on 09.09.2023.
+//  Created by Айдар Оспанов on 14.09.2023.
 //
 
 import UIKit
 
-final class TitleTextFieldView: UIView {
+final class EmailTextFieldView: UIView {
     
     private let titleLabel = UILabel(
         text: "dasd",
@@ -24,11 +24,13 @@ final class TitleTextFieldView: UIView {
         return textField
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(text: String) {
+        super.init(frame: .zero)
+        titleLabel.text = text
         prepareView()
         setupViews()
         setupLayout()
+        setupDelegates()
     }
     
     required init?(coder: NSCoder) {
@@ -43,26 +45,44 @@ final class TitleTextFieldView: UIView {
         titleTextField.text ?? ""
     }
     
+    private func getValueIsValid(_ isValid: Bool) {
+        let color = isValid ? UIColor.grayTextColor() : #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 0.5)
+        titleLabel.textColor = color
+    }
+    
     private func prepareView() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .grayBackgroundColor()
         layer.cornerRadius = 10
-        titleTextField.delegate = self
     }
     
     private func setupViews() {
         addSubview(titleLabel)
         addSubview(titleTextField)
     }
-}
-
-extension TitleTextFieldView: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+    
+    private func setupDelegates() {
+        titleTextField.delegate = self
     }
 }
 
-extension TitleTextFieldView {
+extension EmailTextFieldView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if let text = textField.text, let rangeText = Range(range, in: text) {
+            let updateText = text.replacingCharacters(in: rangeText, with: string)
+            getValueIsValid(updateText.isValid())
+            print(updateText)
+        }
+        return true
+    }
+}
+
+extension EmailTextFieldView {
     private func setupLayout() {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),

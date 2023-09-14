@@ -26,8 +26,6 @@ final class RoomListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        view.backgroundColor = .white
         setupViews()
         setupLayout()
         setupDelegates()
@@ -47,6 +45,7 @@ final class RoomListViewController: UIViewController {
     }
     
     private func setupViews() {
+        view.backgroundColor = .white
         view.addSubview(tableView)
     }
     

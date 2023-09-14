@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol TitleTextTableViewCellDelegate: AnyObject {
+    func testing(text: String)
+}
+
 final class TitleTextTableViewCell: UITableViewCell {
     
     static let identifier = "TitleTextTableViewCell"
+    
+    weak var cellDelegate: TitleTextTableViewCellDelegate?
     
     private let titleTextFieldView = TitleTextFieldView()
     

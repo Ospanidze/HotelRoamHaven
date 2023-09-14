@@ -9,13 +9,19 @@ import UIKit
 
 final class TouristViewController: UIViewController {
     
+//    private lazy var height: NSLayoutConstraint = {
+//        let height = NSLayoutConstraint(item: informationTouristView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 500)
+//        return height
+//    }()
+    
     private let networkManager = NetworkManager.shared
     
     private var expandableNames = [
         ExpandableName(isExpanded: true),
-        ExpandableName()
+        //ExpandableName()
     ]
-
+    
+    private var tourist = Tourist()
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -45,7 +51,7 @@ final class TouristViewController: UIViewController {
     
     private let totalView = TotalTableView()
     
-    private lazy var selectedButton = UIButton(
+    private lazy var payButton = UIButton(
         title: "К выбору номера",
         font: UIFont.mediumSFPro16()
     )
@@ -55,7 +61,7 @@ final class TouristViewController: UIViewController {
         setupComponents()
         fetchInfoHostel()
     }
-
+    
     private func setupComponents() {
         prepareView()
         setupViews()
@@ -67,6 +73,31 @@ final class TouristViewController: UIViewController {
     private func prepareView() {
         title = "Бронирование"
         view.backgroundColor = .white
+        payButton.addTarget(self, action: #selector(payButtonTapped), for: .touchUpInside)
+        informationTouristView.setupTourist(tourist)
+    }
+    
+    @objc private func payButtonTapped() {
+        let edtingTourist = informationTouristView.getTourist()
+        if authFields(tourist: edtingTourist) {
+            let vc = PaidViewController()
+            navigationController?.pushViewController(vc, animated: true)
+            
+        } else {
+            presentAlert(title: "Ошибка", message: "Заполните вся поля имя, фамилия, дата рождения и тп.")
+        }
+    }
+    
+    private func authFields(tourist: Tourist) -> Bool {
+        if tourist.firstName == ""
+            || tourist.lastName == ""
+            || tourist.dateBirthday == ""
+            || tourist.nationality == ""
+            || tourist.passportID == ""
+            || tourist.validity == "" {
+            return false
+        }
+        return true
     }
     
     private func setupViews() {
@@ -78,13 +109,15 @@ final class TouristViewController: UIViewController {
         touristStackView.addArrangedSubview(informationTouristView)
         touristStackView.addArrangedSubview(addButtonView)
         touristStackView.addArrangedSubview(totalView)
-        view.addSubview(selectedButton)
+        view.addSubview(payButton)
     }
     
     private func configure(with model: InfoHostel) {
         reservationView.configure(with: model)
         reservationTableView.configure(with: model)
         totalView.configure(with: model)
+        let sum = model.fuelCharge + model.serviceCharge + model.tourPrice
+        payButton.setTitle("Оплатить \(sum) ₽", for: .normal)
     }
     
     private func fetchInfoHostel() {
@@ -116,18 +149,21 @@ extension TouristViewController: AddTouristViewDelegate {
 
 extension TouristViewController {
     private func setupLayout() {
+        
+        //informationTouristView.addConstraint(height)
+        
         NSLayoutConstraint.activate([
-            selectedButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -34),
-            selectedButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            selectedButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            selectedButton.heightAnchor.constraint(equalToConstant: 48)
+            payButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -34),
+            payButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            payButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            payButton.heightAnchor.constraint(equalToConstant: 48)
         ])
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: selectedButton.topAnchor, constant: -10)
+            scrollView.bottomAnchor.constraint(equalTo: payButton.topAnchor, constant: -10)
         ])
         
         reservationView.heightAnchor.constraint(equalToConstant: 130).isActive = true

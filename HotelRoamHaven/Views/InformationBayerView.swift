@@ -9,25 +9,13 @@ import UIKit
 
 final class InformationBayerView: UIView {
     
-    private let contacts = ["номер телефона", "почта"]
-    
     private let titleLabel = UILabel(
         text: "Информация о покупателе",
         font: .mediumSFPro22()
     )
     
-    private let informationTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.rowHeight = 70
-        tableView.separatorStyle = .none
-        tableView.isScrollEnabled = false
-        tableView.register(
-            TitleTextTableViewCell.self,
-            forCellReuseIdentifier: TitleTextTableViewCell.identifier
-        )
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        return tableView
-    }()
+    private let numberTitleView = NumberTextFieldView(text: "номер телефона")
+    private let emailView = EmailTextFieldView(text: "почта")
     
     private let notificationLabel = UILabel(
         text: "Эти данные никому не передаются. После оплаты мы вышли чек на указанный вами номер и почту",
@@ -46,34 +34,18 @@ final class InformationBayerView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+        
     private func preparaView() {
         backgroundColor = .white
         layer.cornerRadius = 12
         translatesAutoresizingMaskIntoConstraints = false
-        informationTableView.dataSource = self
     }
     
     private func setupViews() {
         addSubview(titleLabel)
-        addSubview(informationTableView)
         addSubview(notificationLabel)
-    }
-}
-
-extension InformationBayerView: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        contacts.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TitleTextTableViewCell.identifier, for: indexPath)
-        guard let cell = cell as? TitleTextTableViewCell else {
-            return UITableViewCell()
-        }
-        let contact = contacts[indexPath.row]
-        cell.configure(with: contact)
-        return cell
+        addSubview(numberTitleView)
+        addSubview(emailView)
     }
 }
 
@@ -85,10 +57,17 @@ extension InformationBayerView {
         ])
         
         NSLayoutConstraint.activate([
-            informationTableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
-            informationTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            informationTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            informationTableView.bottomAnchor.constraint(equalTo: notificationLabel.topAnchor, constant: -8),
+            numberTitleView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
+            numberTitleView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            numberTitleView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            numberTitleView.heightAnchor.constraint(equalToConstant: 52)
+        ])
+        
+        NSLayoutConstraint.activate([
+            emailView.topAnchor.constraint(equalTo: numberTitleView.bottomAnchor, constant: 8),
+            emailView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            emailView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            emailView.heightAnchor.constraint(equalToConstant: 52)
         ])
         
         NSLayoutConstraint.activate([

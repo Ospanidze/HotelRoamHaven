@@ -11,6 +11,11 @@
 		EF37DDF42AABB2AB007BACF3 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF37DDF32AABB2AB007BACF3 /* Option.swift */; };
 		EF37DDF62AABB6C1007BACF3 /* OptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF37DDF52AABB6C1007BACF3 /* OptionTableViewCell.swift */; };
 		EF37DDF82AABD17A007BACF3 /* RoomListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF37DDF72AABD17A007BACF3 /* RoomListViewController.swift */; };
+		EF504B322AB2662800DE794B /* String + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF504B312AB2662800DE794B /* String + ext.swift */; };
+		EF504B342AB2DF3E00DE794B /* NumberTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF504B332AB2DF3E00DE794B /* NumberTextFieldView.swift */; };
+		EF504B362AB37B7300DE794B /* EmailTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF504B352AB37B7300DE794B /* EmailTextFieldView.swift */; };
+		EF504B382AB3862600DE794B /* PresentAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF504B372AB3862600DE794B /* PresentAlert.swift */; };
+		EF504B3A2AB38EF400DE794B /* PaidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF504B392AB38EF400DE794B /* PaidViewController.swift */; };
 		EF6756B52AA97385004E51A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6756B42AA97385004E51A0 /* AppDelegate.swift */; };
 		EF6756B72AA97385004E51A0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6756B62AA97385004E51A0 /* SceneDelegate.swift */; };
 		EF6756B92AA97385004E51A0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6756B82AA97385004E51A0 /* MainViewController.swift */; };
@@ -37,7 +42,6 @@
 		EFC5B7862AADFD54008A8403 /* PeculiaritiesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC5B7852AADFD54008A8403 /* PeculiaritiesCollectionView.swift */; };
 		EFC5B7882AADFECC008A8403 /* PeculiaritiesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC5B7872AADFECC008A8403 /* PeculiaritiesCollectionViewCell.swift */; };
 		EFC5B78A2AAE0405008A8403 /* AboutRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC5B7892AAE0405008A8403 /* AboutRoomView.swift */; };
-		EFC5B78C2AAE09DD008A8403 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC5B78B2AAE09DD008A8403 /* Test.swift */; };
 		EFC5B78E2AAE0B56008A8403 /* PeculiarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC5B78D2AAE0B56008A8403 /* PeculiarTableViewCell.swift */; };
 		EFC8A5032AAE44D1009A56D9 /* ImageCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC8A5022AAE44D1009A56D9 /* ImageCollectionView.swift */; };
 		EFC8A5052AAF31F9009A56D9 /* InfoHostel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC8A5042AAF31F9009A56D9 /* InfoHostel.swift */; };
@@ -47,7 +51,6 @@
 		EFC8A50D2AAF5B07009A56D9 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC8A50C2AAF5B07009A56D9 /* Helper.swift */; };
 		EFC8A5112AAFA345009A56D9 /* TextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC8A5102AAFA345009A56D9 /* TextTableViewCell.swift */; };
 		EFC8A5132AAFAD3F009A56D9 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC8A5122AAFAD3F009A56D9 /* HeaderView.swift */; };
-		EFC8A5152AAFE369009A56D9 /* TestTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC8A5142AAFE369009A56D9 /* TestTextField.swift */; };
 		EFC8A5172AB03913009A56D9 /* Int + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC8A5162AB03913009A56D9 /* Int + ext.swift */; };
 		EFC8A5192AB111B2009A56D9 /* TotalTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC8A5182AB111B2009A56D9 /* TotalTableView.swift */; };
 		EFE757862AAA3A130055A7C1 /* NameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE757852AAA3A130055A7C1 /* NameView.swift */; };
@@ -63,6 +66,11 @@
 		EF37DDF32AABB2AB007BACF3 /* Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
 		EF37DDF52AABB6C1007BACF3 /* OptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionTableViewCell.swift; sourceTree = "<group>"; };
 		EF37DDF72AABD17A007BACF3 /* RoomListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomListViewController.swift; sourceTree = "<group>"; };
+		EF504B312AB2662800DE794B /* String + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + ext.swift"; sourceTree = "<group>"; };
+		EF504B332AB2DF3E00DE794B /* NumberTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberTextFieldView.swift; sourceTree = "<group>"; };
+		EF504B352AB37B7300DE794B /* EmailTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailTextFieldView.swift; sourceTree = "<group>"; };
+		EF504B372AB3862600DE794B /* PresentAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentAlert.swift; sourceTree = "<group>"; };
+		EF504B392AB38EF400DE794B /* PaidViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaidViewController.swift; sourceTree = "<group>"; };
 		EF6756B12AA97385004E51A0 /* HotelRoamHaven.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HotelRoamHaven.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF6756B42AA97385004E51A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EF6756B62AA97385004E51A0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,7 +99,6 @@
 		EFC5B7852AADFD54008A8403 /* PeculiaritiesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeculiaritiesCollectionView.swift; sourceTree = "<group>"; };
 		EFC5B7872AADFECC008A8403 /* PeculiaritiesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeculiaritiesCollectionViewCell.swift; sourceTree = "<group>"; };
 		EFC5B7892AAE0405008A8403 /* AboutRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutRoomView.swift; sourceTree = "<group>"; };
-		EFC5B78B2AAE09DD008A8403 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		EFC5B78D2AAE0B56008A8403 /* PeculiarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeculiarTableViewCell.swift; sourceTree = "<group>"; };
 		EFC8A5022AAE44D1009A56D9 /* ImageCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionView.swift; sourceTree = "<group>"; };
 		EFC8A5042AAF31F9009A56D9 /* InfoHostel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoHostel.swift; sourceTree = "<group>"; };
@@ -101,7 +108,6 @@
 		EFC8A50C2AAF5B07009A56D9 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		EFC8A5102AAFA345009A56D9 /* TextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTableViewCell.swift; sourceTree = "<group>"; };
 		EFC8A5122AAFAD3F009A56D9 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
-		EFC8A5142AAFE369009A56D9 /* TestTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTextField.swift; sourceTree = "<group>"; };
 		EFC8A5162AB03913009A56D9 /* Int + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int + ext.swift"; sourceTree = "<group>"; };
 		EFC8A5182AB111B2009A56D9 /* TotalTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalTableView.swift; sourceTree = "<group>"; };
 		EFE757852AAA3A130055A7C1 /* NameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameView.swift; sourceTree = "<group>"; };
@@ -190,7 +196,7 @@
 				EF6756B82AA97385004E51A0 /* MainViewController.swift */,
 				EF37DDF72AABD17A007BACF3 /* RoomListViewController.swift */,
 				EFC5B7812AACFFA6008A8403 /* TouristViewController.swift */,
-				EFC5B78B2AAE09DD008A8403 /* Test.swift */,
+				EF504B392AB38EF400DE794B /* PaidViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -204,6 +210,8 @@
 				EFA881FC2AA9A76100340658 /* UIColor + ext.swift */,
 				EF37DDF12AAB5BFE007BACF3 /* UIStackView + ext.swift */,
 				EFC8A5162AB03913009A56D9 /* Int + ext.swift */,
+				EF504B312AB2662800DE794B /* String + ext.swift */,
+				EF504B372AB3862600DE794B /* PresentAlert.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -248,11 +256,11 @@
 			isa = PBXGroup;
 			children = (
 				EFE8D6972AA9BEAF00324018 /* ImageCollectionViewCell.swift */,
+				EFC8A5102AAFA345009A56D9 /* TextTableViewCell.swift */,
 				EF37DDF52AABB6C1007BACF3 /* OptionTableViewCell.swift */,
 				EFC5B7872AADFECC008A8403 /* PeculiaritiesCollectionViewCell.swift */,
 				EFC5B78D2AAE0B56008A8403 /* PeculiarTableViewCell.swift */,
 				EFC5B77F2AACF59A008A8403 /* TitleTextTableViewCell.swift */,
-				EFC8A5102AAFA345009A56D9 /* TextTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -270,8 +278,9 @@
 				EFC5B7892AAE0405008A8403 /* AboutRoomView.swift */,
 				EFC8A5022AAE44D1009A56D9 /* ImageCollectionView.swift */,
 				EFC8A5082AAF53D2009A56D9 /* ReservationTableViewCell.swift */,
+				EF504B332AB2DF3E00DE794B /* NumberTextFieldView.swift */,
+				EF504B352AB37B7300DE794B /* EmailTextFieldView.swift */,
 				EFC8A5122AAFAD3F009A56D9 /* HeaderView.swift */,
-				EFC8A5142AAFE369009A56D9 /* TestTextField.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -350,15 +359,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				EFC8A5132AAFAD3F009A56D9 /* HeaderView.swift in Sources */,
+				EF504B342AB2DF3E00DE794B /* NumberTextFieldView.swift in Sources */,
 				EFE757862AAA3A130055A7C1 /* NameView.swift in Sources */,
 				EFC5B7782AAC91A6008A8403 /* InformationBayerView.swift in Sources */,
 				EFA882062AA9B1C200340658 /* Hostel.swift in Sources */,
 				EF6756B92AA97385004E51A0 /* MainViewController.swift in Sources */,
+				EF504B382AB3862600DE794B /* PresentAlert.swift in Sources */,
 				EF6756B52AA97385004E51A0 /* AppDelegate.swift in Sources */,
-				EFC5B78C2AAE09DD008A8403 /* Test.swift in Sources */,
 				EFC5B7862AADFD54008A8403 /* PeculiaritiesCollectionView.swift in Sources */,
 				EFA881FB2AA9A54C00340658 /* UILabel + ext.swift in Sources */,
-				EFC8A5152AAFE369009A56D9 /* TestTextField.swift in Sources */,
 				EFE757882AAA3BFC0055A7C1 /* PriceView.swift in Sources */,
 				EFC5B77C2AAC9F40008A8403 /* InformationTouristView.swift in Sources */,
 				EFC8A5112AAFA345009A56D9 /* TextTableViewCell.swift in Sources */,
@@ -366,12 +375,15 @@
 				EFC8A5192AB111B2009A56D9 /* TotalTableView.swift in Sources */,
 				EFC8A5092AAF53D2009A56D9 /* ReservationTableViewCell.swift in Sources */,
 				EF37DDF82AABD17A007BACF3 /* RoomListViewController.swift in Sources */,
+				EF504B322AB2662800DE794B /* String + ext.swift in Sources */,
 				EFC5B77A2AAC9E11008A8403 /* TextFiledView.swift in Sources */,
+				EF504B362AB37B7300DE794B /* EmailTextFieldView.swift in Sources */,
 				EFA881FF2AA9B09E00340658 /* NetworkManager.swift in Sources */,
 				EFC8A5072AAF3479009A56D9 /* ReservationNameView.swift in Sources */,
 				EFC5B78A2AAE0405008A8403 /* AboutRoomView.swift in Sources */,
 				EFC5B78E2AAE0B56008A8403 /* PeculiarTableViewCell.swift in Sources */,
 				EFC5B7802AACF59A008A8403 /* TitleTextTableViewCell.swift in Sources */,
+				EF504B3A2AB38EF400DE794B /* PaidViewController.swift in Sources */,
 				EFC8A5052AAF31F9009A56D9 /* InfoHostel.swift in Sources */,
 				EFE8D6982AA9BEAF00324018 /* ImageCollectionViewCell.swift in Sources */,
 				EFE8D69B2AA9C2E000324018 /* RatingView.swift in Sources */,

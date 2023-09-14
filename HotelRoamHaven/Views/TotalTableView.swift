@@ -16,6 +16,7 @@ final class TotalTableView: UITableView {
         super.init(frame: frame, style: style)
         prepareView()
         setupDelegates()
+        rowHeight = 40
     }
     
     required init?(coder: NSCoder) {
@@ -45,7 +46,7 @@ final class TotalTableView: UITableView {
     }
     
     private func setupDelegates() {
-        delegate = self
+        //delegate = self
         dataSource = self
     }
 }
@@ -64,14 +65,14 @@ extension TotalTableView: UITableViewDataSource {
         let name = names[indexPath.row].rawValue
         let value = values[indexPath.row]
         
-        cell.configure(with: name, text: value, isRight: true)
-        return cell
-    }
-}
-
-extension TotalTableView: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        indexPath.row == 5 ? UITableView.automaticDimension : 40
+        switch indexPath.row {
+        case 0...2:
+            cell.configure(with: name, text: value, isRight: true, isBlue: false)
+            return cell
+        default:
+            cell.configure(with: name, text: value, isRight: true, isBlue: true)
+            return cell
+        }
     }
 }
 

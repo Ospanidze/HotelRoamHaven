@@ -29,7 +29,7 @@ final class ReservationTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with option: String, text: String, isRight: Bool) {
+    func configure(with option: String, text: String, isRight: Bool, isBlue: Bool) {
         if isRight {
             descriptionLabel.text = option
             nameLabel.text = text + " ₽"
@@ -38,6 +38,8 @@ final class ReservationTableViewCell: UITableViewCell {
             descriptionLabel.text = option
             nameLabel.text = text
         }
+        
+        nameLabel.textColor = isBlue ? UIColor.blueColor() : .black
         
     }
     

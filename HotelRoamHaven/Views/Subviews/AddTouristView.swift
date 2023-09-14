@@ -22,9 +22,9 @@ final class AddTouristView: UIView {
     
     private lazy var addButton: UIButton = {
         let button = UIButton()
-        //button.setImage(UIImage(systemName: "plus.square"), for: .normal)
-        button.setBackgroundImage(UIImage(systemName: "plus.square"), for: .normal)
-        button.backgroundColor = #colorLiteral(red: 0, green: 0.5422510505, blue: 1, alpha: 0.1)
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.tintColor = .white
+        button.backgroundColor = .blueColor()
         button.layer.cornerRadius = 6
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)

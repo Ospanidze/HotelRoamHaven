@@ -11,7 +11,7 @@ final class TextFieldView: UIView {
     
     private let titleTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "+7(***)***-**-**"
+        textField.placeholder = ""
         textField.font = .regularSFPro17()
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -59,6 +59,12 @@ final class TextFieldView: UIView {
                 NSAttributedString.Key.font: font as Any
             ]
         )
+    }
+}
+
+extension TextFieldView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
     }
 }
 

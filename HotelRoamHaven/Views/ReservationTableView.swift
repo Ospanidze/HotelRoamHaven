@@ -67,7 +67,7 @@ extension ReservationTableView: UITableViewDataSource {
         let name = names[indexPath.row].rawValue
         let value = values[indexPath.row]
         
-        cell.configure(with: name, text: value, isRight: false )
+        cell.configure(with: name, text: value, isRight: false, isBlue: false)
         return cell
     }
 }

@@ -9,6 +9,8 @@ import UIKit
 
 final class InformationTouristView: UITableView {
     
+    private var tourist = Tourist()
+    
     private var expandableNames: [ExpandableName] = []
     
     override init(frame: CGRect, style: UITableView.Style) {
@@ -30,12 +32,21 @@ final class InformationTouristView: UITableView {
         expandableNames.append(element)
     }
     
+    func setupTourist(_ tourist: Tourist) {
+        self.tourist = tourist
+    }
+    
+    func getTourist() -> Tourist {
+        getEditTourist()
+        return tourist
+    }
+    
     private func prepareView() {
         translatesAutoresizingMaskIntoConstraints = false
         separatorStyle = .none
         backgroundColor = .grayBackgroundColor()
         layer.cornerRadius = 12
-        rowHeight = 75
+        //rowHeight = 75
         register(
             TitleTextTableViewCell.self,
             forCellReuseIdentifier: TitleTextTableViewCell.identifier
@@ -49,6 +60,24 @@ final class InformationTouristView: UITableView {
     private func setupDelegates() {
         dataSource = self
         delegate = self
+    }
+    
+    private func getEditTourist() {
+        guard let firstNameCell = cellForRow(at: IndexPath(row: 0, section: 0)) as? TitleTextTableViewCell,
+              let lastNameCell = cellForRow(at: IndexPath(row: 1, section: 0)) as? TitleTextTableViewCell,
+              let dateBirthdayCell = cellForRow(at: IndexPath(row: 2, section: 0)) as? TextTableViewCell,
+              let nationalityCell = cellForRow(at: IndexPath(row: 3, section: 0)) as? TextTableViewCell,
+              let passportIDCell = cellForRow(at: IndexPath(row: 4, section: 0)) as? TextTableViewCell,
+              let validityCell = cellForRow(at: IndexPath(row: 5, section: 0))  as? TextTableViewCell else {
+            return
+        }
+        print(firstNameCell.getCellValue())
+        tourist.firstName = firstNameCell.getCellValue()
+        tourist.lastName = lastNameCell.getCellValue()
+        tourist.dateBirthday = dateBirthdayCell.getValueCell()
+        tourist.nationality = nationalityCell.getValueCell()
+        tourist.passportID = passportIDCell.getValueCell()
+        tourist.validity = validityCell.getValueCell()
     }
 }
 
@@ -100,20 +129,23 @@ extension InformationTouristView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         60
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        75
+    }
 }
 
 extension InformationTouristView: TestViewDelegate {
     func didTapped(tag: Int) {
         let section = tag
         var indexPathsToReload: [IndexPath] = []
-        
+        print(rowHeight)
+        //print(contentSize)
         expandableNames[section].names.indices.forEach { row in
-            print(section, row)
             let indexPath = IndexPath(row: row, section: section)
             indexPathsToReload.append(indexPath)
         }
         
-        print(indexPathsToReload)
         let isExpanded = !expandableNames[section].isExpanded
         expandableNames[section].isExpanded = isExpanded
         
