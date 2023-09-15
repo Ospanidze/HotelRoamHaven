@@ -7,13 +7,13 @@
 
 import UIKit
 
-protocol TestViewDelegate: AnyObject {
+protocol HeaderViewDelegate: AnyObject {
     func didTapped(tag: Int)
 }
 
 final class HeaderView: UIView {
     
-    weak var testViewDelegate: TestViewDelegate?
+    weak var headerViewDelegate: HeaderViewDelegate?
     
     static let identifier = "TestView"
     
@@ -57,7 +57,7 @@ final class HeaderView: UIView {
     }
     
     @objc private func hideButtonTapped(sender: UIButton) {
-        testViewDelegate?.didTapped(tag: sender.tag)
+        headerViewDelegate?.didTapped(tag: sender.tag)
         let image = sender.currentImage == UIImage(systemName: "chevron.up")
         ? UIImage(systemName: "chevron.down")
         : UIImage(systemName: "chevron.up")

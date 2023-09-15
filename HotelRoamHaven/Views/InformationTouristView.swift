@@ -15,6 +15,7 @@ final class InformationTouristView: UITableView {
     
     weak var infoTouristDelegate: InformationTouristViewProtocol?
     
+    // MARK: Private Properties
     private var tourist = Tourist()
     
     private var expandableNames: [ExpandableName] = []
@@ -29,6 +30,7 @@ final class InformationTouristView: UITableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Public Methods
     func configure(with expandableNames: [ExpandableName]) {
         self.expandableNames = expandableNames
         reloadData()
@@ -47,6 +49,7 @@ final class InformationTouristView: UITableView {
         return tourist
     }
     
+    //MARK: Private Methods
     private func prepareView() {
         translatesAutoresizingMaskIntoConstraints = false
         separatorStyle = .none
@@ -87,6 +90,7 @@ final class InformationTouristView: UITableView {
     }
 }
 
+//MARK: - UITableViewDataSource
 extension InformationTouristView: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -105,7 +109,7 @@ extension InformationTouristView: UITableViewDataSource {
         let isExpanded = expandableNames[section].isExpanded
         let testView = HeaderView()
         testView.setupButton(section: section, isExpanded: isExpanded)
-        testView.testViewDelegate = self
+        testView.headerViewDelegate = self
         return testView
     }
     
@@ -131,6 +135,7 @@ extension InformationTouristView: UITableViewDataSource {
     }
 }
 
+//MARK: - UITableViewDelegate
 extension InformationTouristView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         60
@@ -141,7 +146,8 @@ extension InformationTouristView: UITableViewDelegate {
     }
 }
 
-extension InformationTouristView: TestViewDelegate {
+//MARK: - HeaderViewDelegate
+extension InformationTouristView: HeaderViewDelegate {
     func didTapped(tag: Int) {
         let section = tag
         let indexPathsToReload = expandableNames[section].names.indices

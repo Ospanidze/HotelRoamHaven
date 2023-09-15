@@ -69,7 +69,6 @@ extension PriceView {
                 equalTo: priceLabel.trailingAnchor
             ),
             additionalLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            //addressLabel.heightAnchor.constraint(equalToConstant: 17),
         ])
     }
 }

@@ -9,6 +9,7 @@ import UIKit
 
 final class ReservationTableView: UITableView {
     
+    //MARK: Private Properties
     private let names = OptionField.allCases
     private var values: [String] = []
     
@@ -22,6 +23,7 @@ final class ReservationTableView: UITableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Public Methods
     func configure(with model: InfoHostel) {
        
         values = [
@@ -37,6 +39,7 @@ final class ReservationTableView: UITableView {
         reloadData()
     }
     
+    //MARK: Private Methods
     private func prepareView() {
         translatesAutoresizingMaskIntoConstraints = false
         separatorStyle = .none
@@ -53,6 +56,7 @@ final class ReservationTableView: UITableView {
     }
 }
 
+//MARK: - UITableViewDataSource
 extension ReservationTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         values.count
@@ -72,6 +76,7 @@ extension ReservationTableView: UITableViewDataSource {
     }
 }
 
+//MARK: - UITableViewDelegate
 extension ReservationTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         indexPath.row == 5 ? UITableView.automaticDimension : 40

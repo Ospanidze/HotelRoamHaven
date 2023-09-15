@@ -15,13 +15,13 @@ final class RoomView: UIView {
     
     weak var roomViewDelegate: RoomViewDelegate?
     
+    //MARK: Private Properties
     private var imagesURL: [String] = []
     
     private let imageCollectionView = ImageCollectionView()
     
     private lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
-        //pageControl.numberOfPages = 1
         pageControl.backgroundColor = .white
         pageControl.pageIndicatorTintColor = .grayTextColor()
         pageControl.currentPageIndicatorTintColor = .black
@@ -29,9 +29,16 @@ final class RoomView: UIView {
         pageControl.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
         pageControl.isEnabled = false
         pageControl.translatesAutoresizingMaskIntoConstraints = false
-        //pageControl.addTarget(self, action: #selector(pageControlValueChanged), for: .valueChanged)
+        pageControl.addTarget(self, action: #selector(pageControlValueChanged), for: .valueChanged)
         return pageControl
     }()
+    
+    //MARK: Private Methods
+    @objc func pageControlValueChanged() {
+        let currentPage = pageControl.currentPage
+        let contentOffset = CGPoint(x: CGFloat(currentPage) * imageCollectionView.frame.size.width, y: 0)
+        imageCollectionView.setContentOffset(contentOffset, animated: true)
+    }
     
     private let titleLabel = UILabel(
         text: "Стандартный с видом на бассейн или сад",
@@ -112,6 +119,7 @@ final class RoomView: UIView {
     }
 }
 
+//MARK: - UICollectionViewDataSource
 extension RoomView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         imagesURL.count
@@ -133,6 +141,7 @@ extension RoomView: UICollectionViewDataSource {
     }
 }
 
+//MARK: - UICollectionViewDelegateFlowLayout
 extension RoomView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         collectionView.bounds.size
@@ -146,6 +155,7 @@ extension RoomView: UICollectionViewDelegateFlowLayout {
     }
 }
 
+//MARK: SetupLayout
 extension RoomView {
     private func setupLayout() {
         NSLayoutConstraint.activate([

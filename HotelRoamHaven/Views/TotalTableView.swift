@@ -9,6 +9,7 @@ import UIKit
 
 final class TotalTableView: UITableView {
     
+    //MARK: Private Properties
     private let names = Price.allCases
     private var values: [String] = []
     
@@ -23,6 +24,7 @@ final class TotalTableView: UITableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Public Methods
     func configure(with model: InfoHostel) {
         let sum = model.tourPrice + model.fuelCharge + model.serviceCharge
         
@@ -35,6 +37,7 @@ final class TotalTableView: UITableView {
         reloadData()
     }
     
+    //MARK: Private Methods
     private func prepareView() {
         translatesAutoresizingMaskIntoConstraints = false
         separatorStyle = .none
@@ -51,6 +54,7 @@ final class TotalTableView: UITableView {
     }
 }
 
+//MARK: - UITableViewDataSource
 extension TotalTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         values.count

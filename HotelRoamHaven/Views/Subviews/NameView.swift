@@ -61,14 +61,12 @@ extension NameView {
             nameLabel.topAnchor.constraint(equalTo: topAnchor),
             nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            //nameLabel.heightAnchor.constraint(equalToConstant: 26),
         ])
         
         NSLayoutConstraint.activate([
             adressLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5),
             adressLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             adressLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            //addressLabel.heightAnchor.constraint(equalToConstant: 17),
         ])
     }
 }

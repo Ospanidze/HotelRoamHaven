@@ -9,6 +9,7 @@ import UIKit
 
 final class TitleCollectionImageView: UIView {
     
+    //MARK: Private Properties
     private var imagesURL: [String] = []
     
     private let imageCollectionView = ImageCollectionView()
@@ -26,8 +27,6 @@ final class TitleCollectionImageView: UIView {
         pageControl.addTarget(self, action: #selector(pageControlValueChanged), for: .valueChanged)
         return pageControl
     }()
-    
-    //private let 
     
     private let ratingView = RatingView()
     private let nameLabelsView = NameView()
@@ -50,6 +49,7 @@ final class TitleCollectionImageView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Public Methods
     func configure(with model: Hostel) {
         ratingView.configure(with: model)
         nameLabelsView.configure(with: model)
@@ -59,6 +59,7 @@ final class TitleCollectionImageView: UIView {
         pageControl.numberOfPages = model.imageUrls.count
     }
     
+    //MARK: Private Methods
     @objc func pageControlValueChanged() {
         let currentPage = pageControl.currentPage
         let contentOffset = CGPoint(x: CGFloat(currentPage) * imageCollectionView.frame.size.width, y: 0)
@@ -86,6 +87,7 @@ final class TitleCollectionImageView: UIView {
     }
 }
 
+//MARK: - UICollectionViewDataSource
 extension TitleCollectionImageView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         imagesURL.count
@@ -107,11 +109,9 @@ extension TitleCollectionImageView: UICollectionViewDataSource {
     }
 }
 
+//MARK: - UICollectionViewDelegateFlowLayout
 extension TitleCollectionImageView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let width = collectionView.bounds.width
-//        let height = collectionView.bounds.height
-//        return CGSize(width: width, height: height)
         collectionView.bounds.size
     }
     
@@ -124,6 +124,7 @@ extension TitleCollectionImageView: UICollectionViewDelegateFlowLayout {
     }
 }
 
+//MARK: SetupLayout
 extension TitleCollectionImageView {
     private func setupLayout() {
         NSLayoutConstraint.activate([

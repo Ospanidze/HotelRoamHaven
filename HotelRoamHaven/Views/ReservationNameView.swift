@@ -9,6 +9,7 @@ import UIKit
 
 final class ReservationNameView: UIView {
     
+    //MARK: Private Properties
     private let ratingView = RatingView()
     
     private let nameView = NameView()
@@ -25,11 +26,13 @@ final class ReservationNameView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Public Methods
     func configure(with model: InfoHostel) {
         ratingView.configure(with: model)
         nameView.configure(with: model)
     }
     
+    //MARK: Private Methods
     private func prepareView() {
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 15
@@ -42,6 +45,7 @@ final class ReservationNameView: UIView {
     }
 }
 
+//MARK: SetupLayout
 extension ReservationNameView {
     private func setupLayout() {
         NSLayoutConstraint.activate([

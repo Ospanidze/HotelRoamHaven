@@ -8,6 +8,8 @@
 import UIKit
 
 final class DescriptionView: UIView {
+    
+    //MARK: Private Properties
     private let options = Option.getOptions()
     
     private let nameLabel = UILabel(text: "Об Отеле", font: UIFont.mediumSFPro22())
@@ -45,11 +47,13 @@ final class DescriptionView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Public Methods
     func configure(with model: Hostel) {
         descriptionLabel.text = model.aboutTheHotel.description
         peculiaritiesCollectionView.configure(with: model)
     }
     
+    //MARK: Private Methods
     private func setupComponents() {
         //descriptionTableView.rowHeight = 44
         addSubviews(
@@ -67,6 +71,7 @@ final class DescriptionView: UIView {
     }
 }
 
+//MARK: - UITableViewDataSource
 extension DescriptionView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         options.count
@@ -87,6 +92,7 @@ extension DescriptionView: UITableViewDataSource {
     }
 }
 
+//MARK: SetupLayout
 extension DescriptionView {
     private func setupLayout() {
         NSLayoutConstraint.activate([

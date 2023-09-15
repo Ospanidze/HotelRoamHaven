@@ -9,6 +9,7 @@ import UIKit
 
 final class InformationBayerView: UIView {
     
+    //MARK: Private Properties
     private let titleLabel = UILabel(
         text: "Информация о покупателе",
         font: .mediumSFPro22()
@@ -34,7 +35,8 @@ final class InformationBayerView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-        
+    
+    //MARK: Private Methods
     private func preparaView() {
         backgroundColor = .white
         layer.cornerRadius = 12
@@ -49,6 +51,7 @@ final class InformationBayerView: UIView {
     }
 }
 
+//MARK: SetupLayout
 extension InformationBayerView {
     private func setupLayout() {
         NSLayoutConstraint.activate([
