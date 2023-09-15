@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol InformationTouristViewProtocol: AnyObject {
+    func contentSize(size: CGSize)
+}
+
 final class InformationTouristView: UITableView {
+    
+    weak var infoTouristDelegate: InformationTouristViewProtocol?
     
     private var tourist = Tourist()
     
@@ -55,6 +61,7 @@ final class InformationTouristView: UITableView {
             TextTableViewCell.self,
             forCellReuseIdentifier: TextTableViewCell.identifier
         )
+        print(contentSize)
     }
     
     private func setupDelegates() {
@@ -71,7 +78,6 @@ final class InformationTouristView: UITableView {
               let validityCell = cellForRow(at: IndexPath(row: 5, section: 0))  as? TextTableViewCell else {
             return
         }
-        print(firstNameCell.getCellValue())
         tourist.firstName = firstNameCell.getCellValue()
         tourist.lastName = lastNameCell.getCellValue()
         tourist.dateBirthday = dateBirthdayCell.getValueCell()
@@ -138,13 +144,8 @@ extension InformationTouristView: UITableViewDelegate {
 extension InformationTouristView: TestViewDelegate {
     func didTapped(tag: Int) {
         let section = tag
-        var indexPathsToReload: [IndexPath] = []
-        print(rowHeight)
-        //print(contentSize)
-        expandableNames[section].names.indices.forEach { row in
-            let indexPath = IndexPath(row: row, section: section)
-            indexPathsToReload.append(indexPath)
-        }
+        let indexPathsToReload = expandableNames[section].names.indices
+            .map { IndexPath(row: $0, section: section) }
         
         let isExpanded = !expandableNames[section].isExpanded
         expandableNames[section].isExpanded = isExpanded
@@ -154,5 +155,6 @@ extension InformationTouristView: TestViewDelegate {
         } else {
             deleteRows(at: indexPathsToReload, with: .fade)
         }
+        infoTouristDelegate?.contentSize(size: contentSize)
     }
 }

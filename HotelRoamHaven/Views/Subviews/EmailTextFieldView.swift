@@ -76,7 +76,6 @@ extension EmailTextFieldView: UITextFieldDelegate {
         if let text = textField.text, let rangeText = Range(range, in: text) {
             let updateText = text.replacingCharacters(in: rangeText, with: string)
             getValueIsValid(updateText.isValid())
-            print(updateText)
         }
         return true
     }

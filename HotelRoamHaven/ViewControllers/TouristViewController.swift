@@ -11,7 +11,7 @@ final class TouristViewController: UIViewController {
     
     //MARK: Private Properties
     private lazy var height: NSLayoutConstraint = {
-        let height = NSLayoutConstraint(item: informationTouristView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 500)
+        let height = NSLayoutConstraint(item: informationTouristView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 532)
         return height
     }()
     
@@ -70,7 +70,6 @@ final class TouristViewController: UIViewController {
         setupLayout()
         informationTouristView.configure(with: expandableNames)
         addButtonView.addTouristViewDelegate = self
-        //height.constant = informationTouristView.contentSize.height
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapGesture)
 
@@ -79,7 +78,7 @@ final class TouristViewController: UIViewController {
     }
     
     @objc private func hideKeyboard() {
-        view.endEditing(true) // Закрыть клавиатуру
+        view.endEditing(true) 
     }
     
     @objc private func backButtonTapped() {
@@ -91,6 +90,7 @@ final class TouristViewController: UIViewController {
         view.backgroundColor = .white
         payButton.addTarget(self, action: #selector(payButtonTapped), for: .touchUpInside)
         informationTouristView.setupTourist(tourist)
+        informationTouristView.infoTouristDelegate = self
     }
     
     @objc private func payButtonTapped() {
@@ -155,13 +155,33 @@ final class TouristViewController: UIViewController {
 //MARK: - AddTouristViewDelegate
 extension TouristViewController: AddTouristViewDelegate {
     func addNewExpanded() {
+        guard expandableNames.count < 6 else { return }
         let expandableName = ExpandableName()
         expandableNames.append(expandableName)
         informationTouristView.addNewExpandbleName(with: expandableName)
         let newSection = expandableNames.count - 1
         let newIndexPath = IndexSet(integer: newSection)
-        print(newIndexPath)
         informationTouristView.insertSections(newIndexPath, with: .automatic)
+        print(informationTouristView.contentSize)
+    }
+}
+
+//MARK: - InformationTouristViewProtocol
+extension TouristViewController: InformationTouristViewProtocol {
+    func contentSize(size: CGSize) {
+        
+        UIView.animate(withDuration: 0.5) {
+            
+            if size.height == 50 {
+                self.height.constant = size.height * 2
+            } else if size.height == 100 {
+                self.height.constant = size.height * 2
+            } else  {
+                self.height.constant = 532
+            }
+            
+            self.view.layoutIfNeeded()
+        }
     }
 }
 

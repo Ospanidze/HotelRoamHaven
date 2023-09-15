@@ -75,11 +75,17 @@ final class PaidViewController: UIViewController {
             superButton
         )
         setupLayout()
+        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.leftBarButtonItem = backButton
         superButton.addTarget(self, action: #selector(superButtonTapped), for: .touchUpInside)
     }
     
     @objc private func superButtonTapped() {
         navigationController?.popToRootViewController(animated: true)
+    }
+    
+    @objc private func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
     }
     
     private func addSubviews(_ subviews: UIView...) {

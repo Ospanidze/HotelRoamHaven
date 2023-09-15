@@ -118,10 +118,8 @@ extension TitleCollectionImageView: UICollectionViewDelegateFlowLayout {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pageWidth = scrollView.frame.size.width
-        print(pageWidth)
         
         let currentPage = Int((scrollView.contentOffset.x + pageWidth / 2) / pageWidth)
-        print(scrollView.contentOffset.x)
         pageControl.currentPage = currentPage
     }
 }
