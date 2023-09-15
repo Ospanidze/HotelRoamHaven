@@ -175,11 +175,12 @@ extension TouristViewController: InformationTouristViewProtocol {
             if size.height == 50 {
                 self.height.constant = size.height * 2
             } else if size.height == 100 {
-                self.height.constant = size.height * 2
-            } else  {
+                self.height.constant = size.height + 75
+            } else if size.height == 150  {
+                self.height.constant = size.height + 100
+            } else {
                 self.height.constant = 532
             }
-            
             self.view.layoutIfNeeded()
         }
     }
