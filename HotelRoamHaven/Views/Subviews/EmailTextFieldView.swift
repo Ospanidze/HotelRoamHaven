@@ -9,6 +9,7 @@ import UIKit
 
 final class EmailTextFieldView: UIView {
     
+    //MARK: Private Properties
     private let titleLabel = UILabel(
         text: "dasd",
         font: .regularSFPro12(),
@@ -37,6 +38,7 @@ final class EmailTextFieldView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Public Methods
     func configure(with title: String) {
         titleLabel.text = title
     }
@@ -45,6 +47,7 @@ final class EmailTextFieldView: UIView {
         titleTextField.text ?? ""
     }
     
+    //MARK: Private Methods
     private func getValueIsValid(_ isValid: Bool) {
         let color = isValid ? UIColor.grayTextColor() : #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 0.5)
         titleLabel.textColor = color
@@ -66,6 +69,7 @@ final class EmailTextFieldView: UIView {
     }
 }
 
+//MARK: UITextFieldDelegate
 extension EmailTextFieldView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -81,6 +85,7 @@ extension EmailTextFieldView: UITextFieldDelegate {
     }
 }
 
+//MARK: SetupLayout
 extension EmailTextFieldView {
     private func setupLayout() {
         NSLayoutConstraint.activate([

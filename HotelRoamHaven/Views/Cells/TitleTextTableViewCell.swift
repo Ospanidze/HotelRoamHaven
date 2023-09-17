@@ -29,6 +29,7 @@ final class TitleTextTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Public Methods 
     func configure(with title: String) {
         titleTextFieldView.configure(with: title)
     }
@@ -37,12 +38,14 @@ final class TitleTextTableViewCell: UITableViewCell {
         titleTextFieldView.getVallueCell()
     }
     
+    //MARK: Private Methods
     private func setupViews() {
         selectionStyle = .none
         contentView.addSubview(titleTextFieldView)
     }
 }
 
+//MARK: SetupLayout
 extension TitleTextTableViewCell {
     private func setupLayout() {
         NSLayoutConstraint.activate([

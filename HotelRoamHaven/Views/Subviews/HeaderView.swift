@@ -17,6 +17,7 @@ final class HeaderView: UIView {
     
     static let identifier = "TestView"
     
+    //MARK: Private Properties
     private let titleLabel = UILabel(
         text: "Первый турист",
         font: .mediumSFPro22()
@@ -46,6 +47,7 @@ final class HeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Public Methods
     func setupButton(section: Int, isExpanded: Bool) {
         titleLabel.text = section.convertStringValue() + " " + "турист"
         hideButton.tag = section
@@ -56,6 +58,7 @@ final class HeaderView: UIView {
 
     }
     
+    //MARK: Private Methods
     @objc private func hideButtonTapped(sender: UIButton) {
         headerViewDelegate?.didTapped(tag: sender.tag)
         let image = sender.currentImage == UIImage(systemName: "chevron.up")

@@ -70,10 +70,18 @@ final class TouristViewController: UIViewController {
         setupLayout()
         informationTouristView.configure(with: expandableNames)
         addButtonView.addTouristViewDelegate = self
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        let tapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(hideKeyboard)
+        )
         view.addGestureRecognizer(tapGesture)
 
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonTapped))
+        let backButton = UIBarButtonItem(
+            image: UIImage(systemName: "chevron.left"),
+            style: .plain,
+            target: self,
+            action: #selector(backButtonTapped)
+        )
         navigationItem.leftBarButtonItem = backButton
     }
     
@@ -88,7 +96,11 @@ final class TouristViewController: UIViewController {
     private func prepareView() {
         title = "Бронирование"
         view.backgroundColor = .white
-        payButton.addTarget(self, action: #selector(payButtonTapped), for: .touchUpInside)
+        payButton.addTarget(
+            self,
+            action: #selector(payButtonTapped),
+            for: .touchUpInside
+        )
         informationTouristView.setupTourist(tourist)
         informationTouristView.infoTouristDelegate = self
     }
@@ -137,6 +149,7 @@ final class TouristViewController: UIViewController {
         payButton.setTitle("Оплатить \(sum) ₽", for: .normal)
     }
     
+    //MARK: FetchInfoHostel
     private func fetchInfoHostel() {
         //Logger
         networkManager.fetch(InfoHostel.self, from: Link.infoHostel.url) { [weak self] result in
@@ -155,7 +168,7 @@ final class TouristViewController: UIViewController {
 //MARK: - AddTouristViewDelegate
 extension TouristViewController: AddTouristViewDelegate {
     func addNewExpanded() {
-        guard expandableNames.count < 6 else { return }
+        guard expandableNames.count < 5 else { return }
         let expandableName = ExpandableName()
         expandableNames.append(expandableName)
         informationTouristView.addNewExpandbleName(with: expandableName)

@@ -15,6 +15,7 @@ final class AddTouristView: UIView {
     
     weak var addTouristViewDelegate: AddTouristViewDelegate?
     
+    //MARK: Private Properties
     private let titleLabel = UILabel(
         text: "Добавить туриста",
         font: .mediumSFPro22()
@@ -42,6 +43,7 @@ final class AddTouristView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Private Methods
     @objc private func addButtonTapped() {
         addTouristViewDelegate?.addNewExpanded()
     }
@@ -58,6 +60,7 @@ final class AddTouristView: UIView {
     }
 }
 
+//MARK: SetupLayout
 extension AddTouristView {
     private func setupLayout() {
         NSLayoutConstraint.activate([

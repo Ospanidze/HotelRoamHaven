@@ -9,6 +9,7 @@ import UIKit
 
 final class RatingView: UIView {
     
+    //MARK: Private Properties
     private let ratingImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "star.fill")
@@ -35,6 +36,7 @@ final class RatingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Public Methods
     func configure(with model: Hostel) {
         numberRatingLabel.text = "\(model.rating) " + model.ratingName
     }
@@ -43,6 +45,7 @@ final class RatingView: UIView {
         numberRatingLabel.text = "\(model.horating) " + model.ratingName
     }
     
+    //MARK: Private Methods
     private func prepareView() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .white
@@ -61,6 +64,7 @@ final class RatingView: UIView {
     
 }
 
+//MARK: SetupLayout
 extension RatingView {
     private func setupLayout() {
         NSLayoutConstraint.activate([

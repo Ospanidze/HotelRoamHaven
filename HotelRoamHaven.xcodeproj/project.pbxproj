@@ -129,6 +129,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EF504B7E2AB6AB6500DE794B /* MainViews */ = {
+			isa = PBXGroup;
+			children = (
+				EFA882002AA9B0C600340658 /* TitleCollectionImageView.swift */,
+				EFE757892AAA64F00055A7C1 /* DescriptionView.swift */,
+			);
+			path = MainViews;
+			sourceTree = "<group>";
+		};
+		EF504B7F2AB6AB7900DE794B /* TouristViews */ = {
+			isa = PBXGroup;
+			children = (
+				EFC5B7772AAC91A6008A8403 /* InformationBayerView.swift */,
+				EFC5B77B2AAC9F40008A8403 /* InformationTouristView.swift */,
+				EFC8A5062AAF3479009A56D9 /* ReservationNameView.swift */,
+				EFC8A50A2AAF5945009A56D9 /* ReservationTableView.swift */,
+				EFC8A5182AB111B2009A56D9 /* TotalTableView.swift */,
+			);
+			path = TouristViews;
+			sourceTree = "<group>";
+		};
+		EF504B802AB6AB8A00DE794B /* RoomViews */ = {
+			isa = PBXGroup;
+			children = (
+				EFC5B7832AADFA13008A8403 /* RoomView.swift */,
+			);
+			path = RoomViews;
+			sourceTree = "<group>";
+		};
 		EF6756A82AA97385004E51A0 = {
 			isa = PBXGroup;
 			children = (
@@ -219,14 +248,9 @@
 		EFA882022AA9B0D200340658 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				EFA882002AA9B0C600340658 /* TitleCollectionImageView.swift */,
-				EFE757892AAA64F00055A7C1 /* DescriptionView.swift */,
-				EFC5B7772AAC91A6008A8403 /* InformationBayerView.swift */,
-				EFC5B77B2AAC9F40008A8403 /* InformationTouristView.swift */,
-				EFC5B7832AADFA13008A8403 /* RoomView.swift */,
-				EFC8A5062AAF3479009A56D9 /* ReservationNameView.swift */,
-				EFC8A50A2AAF5945009A56D9 /* ReservationTableView.swift */,
-				EFC8A5182AB111B2009A56D9 /* TotalTableView.swift */,
+				EF504B7E2AB6AB6500DE794B /* MainViews */,
+				EF504B802AB6AB8A00DE794B /* RoomViews */,
+				EF504B7F2AB6AB7900DE794B /* TouristViews */,
 				EFE8D6992AA9C2A100324018 /* Subviews */,
 				EFE8D6962AA9BE9500324018 /* Cells */,
 			);

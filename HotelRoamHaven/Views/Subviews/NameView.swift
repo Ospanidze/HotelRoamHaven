@@ -9,6 +9,7 @@ import UIKit
 
 final class NameView: UIView {
     
+    //MARK: Private Properties
     private let nameLabel = UILabel(
         text: "Steigenberber Makadi",
         font: .mediumSFPro22(),
@@ -31,6 +32,7 @@ final class NameView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Public Methods
     func configure(with model: Hostel) {
         nameLabel.text = model.name
         adressLabel.text = model.adress
@@ -41,6 +43,7 @@ final class NameView: UIView {
         adressLabel.text = model.hotelAdress
     }
     
+    //MARK: Private Methods
     private func prepareView() {
         translatesAutoresizingMaskIntoConstraints = false
     }
@@ -55,6 +58,7 @@ final class NameView: UIView {
     }
 }
 
+//MARK: SetupLayout
 extension NameView {
     private func setupLayout() {
         NSLayoutConstraint.activate([

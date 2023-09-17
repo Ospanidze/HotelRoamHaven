@@ -11,6 +11,7 @@ final class OptionTableViewCell: UITableViewCell {
     
     static let identifier = "OptionTableViewCell"
     
+    //MARK: Private Properties
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
         //imageView.contentMode = .scaleAspectFit
@@ -41,11 +42,13 @@ final class OptionTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Public Methods
     func configure(with option: Option) {
         titleLabel.text = option.title
         iconImageView.image = UIImage(named: option.imageString)
     }
     
+    //MARK: Private Methods
     private func prepareView() {
         selectionStyle = .none
         backgroundColor = .grayBackgroundColor()
@@ -59,9 +62,9 @@ final class OptionTableViewCell: UITableViewCell {
     }
 }
 
+//MARK: SetupLayout
 extension OptionTableViewCell {
     private func setupLayout() {
-        
         
         NSLayoutConstraint.activate([
             iconImageView.centerYAnchor.constraint(equalTo: centerYAnchor),

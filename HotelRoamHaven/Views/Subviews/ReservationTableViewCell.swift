@@ -11,6 +11,7 @@ final class ReservationTableViewCell: UITableViewCell {
     
     static let identifier = "ReservationTableViewCell"
     
+    //MARK: Private Properties
     private let descriptionLabel = UILabel(
         text: "Вылет из",
         font: .regularSFPro16(),
@@ -29,6 +30,7 @@ final class ReservationTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Public Methods
     func configure(with option: String, text: String, isRight: Bool, isBlue: Bool) {
         if isRight {
             descriptionLabel.text = option
@@ -40,9 +42,9 @@ final class ReservationTableViewCell: UITableViewCell {
         }
         
         nameLabel.textColor = isBlue ? UIColor.blueColor() : .black
-        
     }
     
+    //MARK: Private Methods
     private func setupViews() {
         selectionStyle = .none
         
@@ -63,7 +65,6 @@ final class ReservationTableViewCell: UITableViewCell {
             nameLabel.leadingAnchor.constraint(equalTo: descriptionLabel.trailingAnchor, constant: 15),
             nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
         ])
-        
     }
 }
 

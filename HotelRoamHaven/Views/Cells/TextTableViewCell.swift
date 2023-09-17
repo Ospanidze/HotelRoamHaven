@@ -23,6 +23,7 @@ final class TextTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Public Methods
     func configure(with placeholder: String) {
         textFieldView.configure(with: placeholder)
     }
@@ -31,12 +32,14 @@ final class TextTableViewCell: UITableViewCell {
         textFieldView.getValueCell()
     }
     
+    //MARK: Private Methods
     private func setupViews() {
         selectionStyle = .none
         contentView.addSubview(textFieldView)
     }
 }
 
+//MARK: SetupLayout
 extension TextTableViewCell {
     private func setupLayout() {
         NSLayoutConstraint.activate([

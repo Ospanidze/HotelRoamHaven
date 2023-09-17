@@ -13,9 +13,7 @@ final class PaidViewController: UIViewController {
     private let backdropView: UIView = {
         let view = UIView()
         view.backgroundColor = .grayBackgroundColor()
-//        view.layer.cornerRadius = 15
         view.translatesAutoresizingMaskIntoConstraints = false
-        //view.largeContentImage = UIImage(systemName: "person")
         return view
     }()
     
@@ -75,9 +73,17 @@ final class PaidViewController: UIViewController {
             superButton
         )
         setupLayout()
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonTapped))
+        let backButton = UIBarButtonItem(
+            image: UIImage(systemName: "chevron.left"),
+            style: .plain,
+            target: self,
+            action: #selector(backButtonTapped)
+        )
         navigationItem.leftBarButtonItem = backButton
-        superButton.addTarget(self, action: #selector(superButtonTapped), for: .touchUpInside)
+        superButton.addTarget(
+            self, action: #selector(superButtonTapped),
+            for: .touchUpInside
+        )
     }
     
     @objc private func superButtonTapped() {

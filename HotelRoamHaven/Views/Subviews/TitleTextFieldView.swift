@@ -9,6 +9,7 @@ import UIKit
 
 final class TitleTextFieldView: UIView {
     
+    //MARK: Private Properties
     private let titleLabel = UILabel(
         text: "dasd",
         font: .regularSFPro12(),
@@ -35,6 +36,7 @@ final class TitleTextFieldView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Public Methods
     func configure(with title: String) {
         titleLabel.text = title
     }
@@ -43,6 +45,7 @@ final class TitleTextFieldView: UIView {
         titleTextField.text ?? ""
     }
     
+    //MARK: Private Methods
     private func prepareView() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .grayBackgroundColor()
@@ -56,12 +59,14 @@ final class TitleTextFieldView: UIView {
     }
 }
 
+//MARK: - UITextFieldDelegate
 extension TitleTextFieldView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
     }
 }
 
+//MARK: SetupLayout
 extension TitleTextFieldView {
     private func setupLayout() {
         NSLayoutConstraint.activate([

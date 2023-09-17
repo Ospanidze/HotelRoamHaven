@@ -11,6 +11,7 @@ final class ImageCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "ImageCollectionViewCell"
     
+    //MARK: Private Properties
     private let networkManager = NetworkManager.shared
     
     private var image: UIImage? {
@@ -48,6 +49,7 @@ final class ImageCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Public Methods
     func configure(with imageString: String) {
         networkManager.fetchImage(from: imageString) { [weak self] result in
             switch result {
@@ -60,12 +62,14 @@ final class ImageCollectionViewCell: UICollectionViewCell {
         
     }
     
+    //MARK: Private Methods
     private func setupViews() {
         addSubview(hotelImageView)
         addSubview(activityIndicator)
     }
 }
 
+//MARK: SetupLayout
 extension ImageCollectionViewCell {
     private func setupLayout() {
         NSLayoutConstraint.activate([

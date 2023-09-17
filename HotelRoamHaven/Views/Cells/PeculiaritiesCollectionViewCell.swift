@@ -9,14 +9,6 @@ import UIKit
 
 final class PeculiaritiesCollectionViewCell: UICollectionViewCell {
     
-//    private let backView: UIView = {
-//        let view = UIView()
-//        view.backgroundColor = .grayBackgroundColor()
-//        view.layer.cornerRadius = 12
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        return view
-//    }()
-    
     private let peculiarLabel = UILabel(
         text: "все включено",
         font: .mediumSFPro16(),
@@ -37,30 +29,29 @@ final class PeculiaritiesCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Public Methods
     func configure(with peculiarStr: String) {
         peculiarLabel.text = peculiarStr
     }
     
+    //MARK: Private Methods
     private func prepareView() {
         layer.cornerRadius = 12
         backgroundColor = .grayBackgroundColor()
     }
     
     private func setupViews() {
-       
         addSubview(peculiarLabel)
-        //backView.addSubview(peculiarLabel)
     }
 }
 
+//MARK: SetupLayout
 extension PeculiaritiesCollectionViewCell {
     private func setupLayout() {
-
         NSLayoutConstraint.activate([
             peculiarLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             peculiarLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
-       
     }
 }
 

@@ -9,6 +9,7 @@ import UIKit
 
 final class AboutRoomView: UIView {
     
+    //MARK: Private Properties
     private let titleLabel = UILabel(
         text: "Подробнее о номере",
         font: .mediumSFPro16(),
@@ -34,6 +35,7 @@ final class AboutRoomView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Private Methods
     private func prepareView() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .blueColor().withAlphaComponent(0.1)

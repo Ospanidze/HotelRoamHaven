@@ -9,6 +9,7 @@ import UIKit
 
 final class PriceView: UIView {
     
+    //MARK: Private Properties
     private let priceLabel = UILabel(
         text: "от 134 673 ₽",
         font: .semiboldSFPro()
@@ -30,6 +31,7 @@ final class PriceView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Public Methods
     func configure(with model: Hostel) {
         priceLabel.text = " oт \(model.minimalPrice) ₽"
         additionalLabel.text = model.priceForIt
@@ -40,6 +42,7 @@ final class PriceView: UIView {
         additionalLabel.text = room.pricePer
     }
     
+    //MARK: Private Methods
     private func prepareView() {
         translatesAutoresizingMaskIntoConstraints = false
     }
@@ -54,6 +57,7 @@ final class PriceView: UIView {
     }
 }
 
+//MARK: SetupLayout
 extension PriceView {
     private func setupLayout() {
         NSLayoutConstraint.activate([

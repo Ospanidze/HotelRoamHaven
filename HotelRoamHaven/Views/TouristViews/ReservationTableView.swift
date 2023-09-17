@@ -63,7 +63,10 @@ extension ReservationTableView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ReservationTableViewCell.identifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: ReservationTableViewCell.identifier,
+            for: indexPath
+        )
         
         guard let cell = cell as? ReservationTableViewCell else {
             return UITableViewCell()

@@ -8,7 +8,8 @@
 import UIKit
 
 final class ImageCollectionView: UICollectionView {
-
+    
+    //MARK: Private Properties
     private let collectionFlowLayout = UICollectionViewFlowLayout()
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
@@ -22,6 +23,7 @@ final class ImageCollectionView: UICollectionView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Private Methods
     private func prepareView() {
         translatesAutoresizingMaskIntoConstraints = false
         showsHorizontalScrollIndicator = false

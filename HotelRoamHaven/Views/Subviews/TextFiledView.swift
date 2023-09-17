@@ -9,6 +9,7 @@ import UIKit
 
 final class TextFieldView: UIView {
     
+    //MARK: Private Properties
     private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = ""
@@ -31,6 +32,7 @@ final class TextFieldView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Public Methods
     func configure(with placeholder: String) {
         titleTextField.placeholder = placeholder
     }
@@ -39,6 +41,7 @@ final class TextFieldView: UIView {
         titleTextField.text ?? ""
     }
     
+    //MARK: Private Methods
     private func prepareView() {
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 10
@@ -62,12 +65,14 @@ final class TextFieldView: UIView {
     }
 }
 
+//MARK: - UITextFieldDelegate
 extension TextFieldView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
     }
 }
 
+//MARK: SetupLayout
 extension TextFieldView {
     private func setupLayout() {
         NSLayoutConstraint.activate([

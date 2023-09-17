@@ -14,7 +14,12 @@ final class MainViewController: UIViewController {
     
     private var hostel: Hostel?
     
-    private let mainStackView = UIStackView(spacing: 8, aligment: .fill, axis: .vertical, distribution: .fillEqually)
+    private let mainStackView = UIStackView(
+        spacing: 8,
+        aligment: .fill,
+        axis: .vertical,
+        distribution: .fillEqually
+    )
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -69,6 +74,7 @@ final class MainViewController: UIViewController {
         descriptionView.configure(with: hostel)
     }
     
+    //MARK: FetchHostel
     private func fetchHostel() {
         networkManager.fetch(Hostel.self, from: Link.hostel.url) { result in
             switch result {

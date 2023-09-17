@@ -9,6 +9,7 @@ import UIKit
 
 final class NumberTextFieldView: UIView {
     
+    //MARK: Private Properties
     private var isTyping = false {
         didSet {
             if self.isTyping {
@@ -56,10 +57,12 @@ final class NumberTextFieldView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Public Methods
     func getVallueCell() -> String {
         numberTextField.text ?? ""
     }
     
+    //MARK: Private Methods
     private func prepareView() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .grayBackgroundColor()
@@ -78,6 +81,7 @@ final class NumberTextFieldView: UIView {
     }
 }
 
+//MARK: - UITextFieldDelegate
 extension NumberTextFieldView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.resignFirstResponder()
@@ -108,6 +112,7 @@ extension NumberTextFieldView: UITextFieldDelegate {
     }
 }
 
+//MARK: SetupLayout
 extension NumberTextFieldView {
     private func setupLayout() {
         NSLayoutConstraint.activate([

@@ -118,14 +118,20 @@ extension InformationTouristView: UITableViewDataSource {
         
         switch indexPath.row {
         case 0...1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: TitleTextTableViewCell.identifier, for: indexPath)
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: TitleTextTableViewCell.identifier,
+                for: indexPath
+            )
             guard let cell = cell as? TitleTextTableViewCell else {
                 return UITableViewCell()
             }
             cell.configure(with: name)
             return cell
         default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: TextTableViewCell.identifier, for: indexPath)
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: TextTableViewCell.identifier,
+                for: indexPath
+            )
             guard let cell = cell as? TextTableViewCell else {
                 return UITableViewCell()
             }

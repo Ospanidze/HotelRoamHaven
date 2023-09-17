@@ -9,11 +9,10 @@ import UIKit
 
 final class PeculiaritiesCollectionView: UICollectionView {
     
-    //weak var dishDelegate: DishCollectionViewDelegate?
+    //MARK: Private Properties
     private var peculiarties: [String] = []
     
     private let identifier = "PeculiaritiesCollectionView"
-    
     
     private let collectionFlowLayout = UICollectionViewFlowLayout()
     
@@ -29,6 +28,7 @@ final class PeculiaritiesCollectionView: UICollectionView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Public Properties
     func configure(with room: Room) {
         peculiarties = room.peculiarities
         reloadData()
@@ -39,6 +39,7 @@ final class PeculiaritiesCollectionView: UICollectionView {
         reloadData()
     }
     
+    //MARK: Private Methods
     private func prepareView() {
         translatesAutoresizingMaskIntoConstraints = false
         register(PeculiaritiesCollectionViewCell.self, forCellWithReuseIdentifier: identifier)
@@ -57,7 +58,7 @@ final class PeculiaritiesCollectionView: UICollectionView {
         dataSource = self
         delegate = self
     }
-//
+    
     private func calculateWidthForCell(at indexPath: IndexPath) -> CGFloat {
         let sampleText = peculiarties[indexPath.row]
 
@@ -75,15 +76,7 @@ final class PeculiaritiesCollectionView: UICollectionView {
     }
 }
 
-//MARK: UI
-extension PeculiaritiesCollectionView: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       
-    }
-}
-
 //MARK: - UICollectionViewDataSource
-
 extension PeculiaritiesCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         peculiarties.count
@@ -107,19 +100,10 @@ extension PeculiaritiesCollectionView: UICollectionViewDataSource {
     }
 }
 
-//MARK: UICollectionViewDelegateFlowLayout
-
+//MARK: - UICollectionViewDelegateFlowLayout
 extension PeculiaritiesCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let collectionViewWidth = collectionView.bounds.width
-//        
-//        let cellWidth = collectionViewWidth / 2
-        //let cellHeight = collectionView.bounds.height
         let cellWidth = calculateWidthForCell(at: indexPath)
         return CGSize(width: cellWidth, height: 29)
-        
-        //return CGSize(width: cellWidth, height: collectionView.bounds.height)
     }
-    
-    
 }

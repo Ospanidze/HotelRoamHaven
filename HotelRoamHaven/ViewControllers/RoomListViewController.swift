@@ -38,19 +38,22 @@ final class RoomListViewController: UIViewController {
         guard let title = hostel?.name else { return }
         let truncatedString = String(title.prefix(20))
         self.title = truncatedString
-        //self.title  = hostel?.name
     }
     
     //MARK: Private Methods
     private func setupDelegates() {
         tableView.dataSource = self
-        //tableView.delegate = self
     }
     
     private func setupViews() {
         view.backgroundColor = .white
         view.addSubview(tableView)
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonTapped))
+        let backButton = UIBarButtonItem(
+            image: UIImage(systemName: "chevron.left"),
+            style: .plain,
+            target: self,
+            action: #selector(backButtonTapped)
+        )
         navigationItem.leftBarButtonItem = backButton
     }
     
@@ -58,6 +61,7 @@ final class RoomListViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    //MARK: FetchMotel
     private func fetchMotel() {
         networkManager.fetch(Motel.self, from: Link.motel.url) { result in
             switch result {

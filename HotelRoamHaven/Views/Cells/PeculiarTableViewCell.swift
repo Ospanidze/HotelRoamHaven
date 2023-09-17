@@ -35,6 +35,7 @@ final class PeculiarTableViewCell: UITableViewCell {
         roomView.configure(with: room)
     }
     
+    //MARK: Private Methods
     private func prepareView() {
         layer.cornerRadius = 12
         backgroundColor = .grayBackgroundColor()
@@ -50,12 +51,14 @@ final class PeculiarTableViewCell: UITableViewCell {
     }
 }
 
+//MARK: - RoomViewDelegate
 extension PeculiarTableViewCell: RoomViewDelegate {
     func didTapped() {
         peculiarDelegate?.cellButtonTapped()
     }
 }
 
+//MARK: SetupLayout
 extension PeculiarTableViewCell {
     private func setupLayout() {
         NSLayoutConstraint.activate([
