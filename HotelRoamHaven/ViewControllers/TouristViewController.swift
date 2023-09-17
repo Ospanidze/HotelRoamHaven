@@ -163,6 +163,15 @@ final class TouristViewController: UIViewController {
             }
         }
     }
+    
+    private func animateContent() {
+        
+        UIView.animate(withDuration: 0.5) {
+            self.height.constant += 75
+            
+            self.view.layoutIfNeeded()
+        }
+    }
 }
 
 //MARK: - AddTouristViewDelegate
@@ -176,6 +185,7 @@ extension TouristViewController: AddTouristViewDelegate {
         let newIndexPath = IndexSet(integer: newSection)
         informationTouristView.insertSections(newIndexPath, with: .automatic)
         print(informationTouristView.contentSize)
+        animateContent()
     }
 }
 
